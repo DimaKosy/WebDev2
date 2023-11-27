@@ -22,3 +22,12 @@ var cb2 = function (req, res, next) {
 	console.log('Handler 2');
 	next();
 }
+
+
+app.get('/edu', function (req, res) {
+	model.selectEdu(function Education(response){			
+			console.log("From server:" + JSON.stringify(response));
+			res.send(response);
+		});
+});
+
