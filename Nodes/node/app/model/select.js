@@ -59,7 +59,7 @@ exports.selectGameList = function(response){
 	con.connect(function(err) {
 	  if (err) throw err;
 	  con.query(
-		"SELECT game_name, games_review FROM games join games_list on games_list.game_id = games.game_id where user_id = ?"[user_Id]
+		"SELECT game_name, game_review FROM games join games_list on games_list.game_id = games.game_id where user_id = 1"[user_Id]
 		, function (err, result, fields) { // change the query to match your needs and setup
 		if (err) throw err;
 		console.log("From model: " + result);
@@ -110,7 +110,7 @@ exports.updateGameList = function(response){
 	con.connect(function(err) {
 	  if (err) throw err;
 	  con.query(
-		"UPDATE games_list set games_review = ? where game_id = ? and user_id = ?"[game_Id, user_Id]
+		"UPDATE games_list set game_review = ? where game_id = ? and user_id = ?;"[game_review, game_Id, user_Id]
 		, function (err, result, fields) { // change the query to match your needs and setup
 		if (err) throw err;
 		console.log("From model: " + result);
