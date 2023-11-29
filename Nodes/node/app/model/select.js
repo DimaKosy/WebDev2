@@ -122,7 +122,7 @@ exports.updateGameList = function(response){
 exports.InsertIntoGamesList = function(response){
 	var mysql = require('mysql2');
 
-	var con = mysql.createConnection({ // change these details to match your installation
+	var con = mysql.createConnection({ // change these  details to match your installation
 	  host: "localhost",
 	  user: "root",
 	  password: "1234", 
