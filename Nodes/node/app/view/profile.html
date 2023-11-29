@@ -33,6 +33,7 @@
     <link rel="icon" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/favicon.ico">
     <meta name="theme-color" content="#712cf9">
 
+    <!-- Needs to be cleaned up into an actual css stylesheet linked to the project-->
     <style>
         /* Your existing styles remain unchanged */
 
@@ -125,6 +126,8 @@
                     <input class="form-control me-2" type="password" placeholder="Password" aria-label="Password"
                            required>
                     <button class="btn btn-outline-success" type="submit">Login</button>
+                    <button class="btn btn-outline-success" type="Sign Up!">Sign up</button>
+                    <!-- Request to login or sign up -->
                 </form>
 
             </div>
@@ -179,14 +182,16 @@
                         <td><input type="text" placeholder="Enter Game Name"></td>
                         <td><input type="text" placeholder="Enter Review"></td>
                         <td><button class="btn btn-success">Add Game</button></td>
+                        <!--This button would send the users inputted data into the databases-->
                     </tr>
                     <!-- Sample Rows -->
                     <tr>
-                        <td>The last of us part 1</td>
+                        <td>The Last Of Us Part 1</td>
                         <td>Excellent</td>
                         <td>
                             <button class="btn btn-primary">Update</button>
                             <button class="btn btn-danger">Delete</button>
+                            <!--These 2 would open a tab where the user can edit the inputted fields or delete that data row -->
                         </td>
                     </tr>
                     <tr>
@@ -197,14 +202,14 @@
                             <button class="btn btn-danger">Delete</button>
                         </td>
                     </tr>
-                    <!-- End of Sample Rows -->
+                    <!-- End of Rows -->
                     </tbody>
                 </table>
             </div>
         </div>
     </main>
 </div>
-
+<!-- Basic Footer -->
 <footer class="footer">
     <p>&#169; 2023 Reserved rights</p>
 </footer>
