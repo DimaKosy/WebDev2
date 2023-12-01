@@ -5,7 +5,7 @@ exports.selectGames = function(response){
 	var con = mysql.createConnection({ // change these details to match your installation
 	  host: "localhost",
 	  user: "root",
-	  password: "1234", 
+	  password: "seriousSql1", 
 	  database: "sys",
 	  port:3306
 	});
