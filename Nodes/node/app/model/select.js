@@ -54,23 +54,28 @@ exports.deleteFromGameList = function (response) {
     );
 }
 
+// Function to update the game data in the games table
+exports.updateGame = function (gameId, updatedData, response) {
+    console.log("Updating game with ID:", gameId);  // Add this line
+    console.log("Updated game data:", updatedData);  // Add this line
 
-exports.updateGame = function (id, updatedData, response) {
     var gameName = updatedData.gameName;
     var review = updatedData.review;
 
     db.query(
         "UPDATE games SET game_name = ?, review = ? WHERE game_id = ?",
-        [gameName, review, id],
+        [gameName, review, gameId],
         function (err, result, fields) {
-            if (err) throw err;
+            if (err) {
+                console.error(err);
+                throw err;
+            }
+
             console.log("From model: " + result);
             response(result);
         }
     );
 }
-
-
 
 
 

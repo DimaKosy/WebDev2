@@ -35,9 +35,11 @@ $(document).ready(function () {
                 reviewCell.text(game.review);
                 var actionsCell = $("<td></td>");
                 var updateButton = $("<button class='btn btn-primary editGame'>Update</button>");
-                updateButton.data("gameid", game._id);
+                updateButton.attr("id", "updateButton_" + game.gameid); // Set a unique ID for each button
+                updateButton.data("gameid", game.gameid);
                 var deleteButton = $("<button class='btn btn-danger deleteGame'>Delete</button>");
-                deleteButton.data("gameid", game._id);
+                deleteButton.attr("id", "deleteButton_" + game.gameid); // Set a unique ID for each button
+                deleteButton.data("gameid", game.gameid);
 
                 actionsCell.append(updateButton, deleteButton);
 
@@ -68,14 +70,12 @@ $(document).ready(function () {
         });
     });
 
-
-    // Edit Button Click Event
     $(document).on("click", ".editGame", function () {
         var gameId = $(this).data("gameid");
 
-        // Get the updated game name and review from the user
-        var updatedGameName = prompt("Enter the updated game name:");
-        var updatedReview = prompt("Enter the updated review:");
+        // Use the existing values or provide an interface for the user to edit
+        var updatedGameName = prompt("Enter the updated game name:", $(this).closest("tr").find("td:first").text());
+        var updatedReview = prompt("Enter the updated review:", $(this).closest("tr").find("td:eq(1)").text());
 
         // Send the updated data to the server
         $.ajax({
@@ -88,10 +88,6 @@ $(document).ready(function () {
             }
         });
     });
-
-
-
-
 
     // Delete Button Click Event
     $(document).on("click", ".deleteGame", function () {
