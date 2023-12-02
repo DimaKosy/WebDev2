@@ -11,23 +11,55 @@ app.use(express.urlencoded({ extended: true }));
 
 http.createServer(app).listen(8080);
 
+// Middleware for logging
+var loggingMiddleware = function (req, res, next) {
+    console.log('Request received at: ', new Date());
+    next();
+};
 
-var cb1 = function (req, res, next) {
-	console.log('Handler 1');
-	//next('route'); 	// bypass all the handlers indicated in the array and go to the next route, app.get('/users', function (req, res){
-	next(); 			// call the next handler in the array, cb2	
-}
+app.use(loggingMiddleware);
 
-var cb2 = function (req, res, next) {
-	console.log('Handler 2');
-	next();
-}
-
-
-app.get('/edu', function (req, res) {
-	model.selectEdu(function Education(response){			
-			console.log("From server:" + JSON.stringify(response));
-			res.send(response);
-		});
+// Endpoint for fetching game data (GET request)
+app.get('/games', function (req, res) {
+    model.selectGames(function Games(response) {
+        console.log("From server:" + JSON.stringify(response));
+        res.send(response);
+    });
 });
 
+// Endpoint for adding game data (POST request)
+app.post('/games', function (req, res) {
+    // Extract data from the request body
+    var newData = req.body;
+
+    // Use your model function to add the data to your database
+    model.addGame(newData, function (response) {
+        console.log("Added game data: " + JSON.stringify(response));
+        res.send(response);
+    });
+});
+
+// Endpoint for updating game data (PUT request)
+app.put('/games/:id', function (req, res) {
+    var id = req.params.id;
+    var updatedData = req.body;
+
+    // Use your model function to update the data in your database
+    model.updateGame(id, updatedData, function (response) {
+        console.log("Updated game data: " + JSON.stringify(response));
+        res.send(response);
+    });
+});
+
+
+
+// Endpoint for deleting game data (DELETE request)
+app.delete('/games/:id', function (req, res) {
+    var id = req.params.id;
+
+    // Use your model function to delete the data from your database
+    model.deleteGame(id, function (response) {
+        console.log("Deleted game data: " + JSON.stringify(response));
+        res.send(response);
+    });
+});
