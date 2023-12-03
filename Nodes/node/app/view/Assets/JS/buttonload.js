@@ -12,6 +12,8 @@ function loadMore() {
     // Use template literals to construct the correct URL
     $.get(`/allgames/${buttonId}`, function (data, status) {
 
+
+        
         if(data.length == 3){
             buttonId++;
             document.getElementById('load-more-button').innerText = `Load More!`;
@@ -21,7 +23,7 @@ function loadMore() {
             return;
         }
 
-        
+
         data.forEach(function (game, i) { // Add 'i' as the second parameter
             const newGrid1 = document.createElement('div');
             newGrid1.className = 'col-lg-4';
