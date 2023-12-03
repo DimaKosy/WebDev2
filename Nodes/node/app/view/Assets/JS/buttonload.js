@@ -9,24 +9,11 @@ function loadMore() {
     const gridContainer = document.getElementById('grid-container');
     const newRow = document.createElement('div');
     newRow.className = 'row';
-
-    // Use template literals to construct the correct URL
-    $.get(`/allgames/${buttonId}`, function(data, status) {
-        data.forEach(function(game) {
-            const newGrid1 = document.createElement('div');
-            newGrid1.className = 'col-lg-4';
-            newGrid1.innerHTML = `
-                <title>New Placeholder</title>
-                <rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
-                <h2 class="fw-normal">New Title</h2>
-                <p>New Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, omnis, soluta expedita maxime laboriosam cumque voluptatem minus porro eos labore itaque possimus a facere aut praesentium quod necessitatibus! Repellendus, alias.</p>
-                <p><a class="btn btn-secondary" href="#">View details »</a></p>
-            `;
-            newRow.appendChild(newGrid1);
-        });
-
-        // Append the new row to the grid container
-        gridContainer.appendChild(newRow);
+    
+    $.get(`/allgames/${buttonId++}`,function(data,status){
+        for(var i = 1; i < data.length;i++){
+            console.log(data[i]);
+        }
     });
 
 
