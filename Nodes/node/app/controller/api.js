@@ -32,7 +32,7 @@ app.get('/games', function (req, res) {
 });
 
 // Endpoint for adding game data (POST request)
-app.post('/gameAdd', function (req, res) {
+app.post('/game', function (req, res) {
     var newData = req.body;
 
 	console.log("Adding");
@@ -68,7 +68,10 @@ app.delete('/games/:id', function (req, res) {
 });
 
 
-//login route
-
+app.get('/allgames/:offset', function(req, res){
+	model.LoadNextGame(req.params.offset, function(response){
+		res.send(response);
+	});
+});
 
 http.createServer(app).listen(8080);
