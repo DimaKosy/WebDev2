@@ -12,6 +12,9 @@
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/carousel/">
     <link rel="stylesheet" href="Assets/Css/stylesheet.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="Assets/JS/addgames.js"></script>
+
 
     <!--<link href="Carousel%20Template%20%C2%B7%20Bootstrap%20v5.3_files/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -102,43 +105,34 @@
                 <div class="game-table bg-light">
                     <!-- Right Column: Game Table -->
                     <h2>Game Table</h2>
-                    <table class="table">
+                    <table class="table" id="gameTable">
                         <thead>
                             <tr>
                                 <th>Game Name</th>
                                 <th>Review</th>
-                                <th>Add Game</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><input type="text" placeholder="Enter Game Name"></td>
-                                <td><input type="text" placeholder="Enter Review"></td>
-                                <td><button class="btn btn-success">Add Game</button></td>
-                                <!--This button would send the users inputted data into the databases-->
-                            </tr>
-                            <!-- Sample Rows -->
-                            <tr>
-                                <td>The Last Of Us Part 1</td>
-                                <td>Excellent</td>
-                                <td>
-                                    <button class="btn btn-primary">Update</button>
-                                    <button class="btn btn-danger">Delete</button>
-                                    <!--These 2 would open a tab where the user can edit the inputted fields or delete that data row -->
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Call of duty 3</td>
-                                <td>Retro good</td>
-                                <td>
-                                    <button class="btn btn-primary">Update</button>
-                                    <button class="btn btn-danger">Delete</button>
-                                </td>
-                            </tr>
-                            <!-- End of Rows -->
+                            <!-- Previous Game List Will Be Appended Here -->
                         </tbody>
                     </table>
                 </div>
+                
+                <!-- Input Fields for New Game -->
+                <div class="game-input">
+                    <h2>Add New Game</h2>
+                    <div>
+                        <label for="gameNameInput">Game Name:</label>
+                        <input type="text" id="gameNameInput" placeholder="Enter Game Name">
+                    </div>
+                    <div>
+                        <label for="reviewInput">Review:</label>
+                        <input type="text" id="reviewInput" placeholder="Enter Review">
+                    </div>
+                    <button class="btn btn-success" id="addGame">Add Game</button>
+                </div>
+                
             </div>
         </main>
     </div>

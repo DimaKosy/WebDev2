@@ -1,119 +1,113 @@
-var con
+const { response } = require('express');
+var mysql = require('mysql2');
+var db = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "1234",
+    database: "sys",
+    port: 3306
+});
 
-function connectServ(){
-    var mysql = require('mysql2');
-
-	con = mysql.createConnection({ // change these details to match your installation
-	  host: "localhost",
-	  user: "root",
-	  password: "1234", 
-	  database: "sys",
-	  port:3306
+async function findGameID(Gamename){
+	return new Promise((resolve, reject) => {
+		db.query("SELECT find_or_insert_game(?) AS result;", [Gamename], function (err, result) {
+			if (err) throw err;
+			console.log(result[0].result);
+			resolve(result[0].result);
+		});
 	});
 
 }
 
-exports.selectGames = function(response){
 
-	connectServ();
 
-	con.connect(function(err) {
-	  if (err) throw err;
-	  con.query("SELECT game_name FROM games", function (err, result, fields) { // change the query to match your needs and setup
-		if (err) throw err;
-		console.log("From model: " + result);
-		response(result);		
-		
-	  });
-	});
+// Function to fetch game data
+exports.selectGames = function (response) {
+    db.query("SELECT game_name, review FROM games", function (err, result, fields) {
+        if (err) throw err;
+        console.log("From model: " + result);
+        response(result);
+    });
 }
 
-exports.selectUsers = function(response){
-
-	connectServ();
-
-	con.connect(function(err) {
-	  if (err) throw err;
-	  con.query("SELECT user_name FROM user", function (err, result, fields) { // change the query to match your needs and setup
-		if (err) throw err;
-		console.log("From model: " + result);
-		response(result);		
-		
-	  });
-	});
+// Function to fetch user data
+exports.selectUsers = function (response) {
+    db.query("SELECT user_name FROM games", function (err, result, fields) {
+        if (err) throw err;
+        console.log("From model: " + result);
+        response(result);
+    });
 }
 
-exports.selectGameList = function(response){
-
-	connectServ();
-
-	con.connect(function(err) {
-	  if (err) throw err;
-	  con.query(
-		"SELECT game_name, game_review FROM games join games_list on games_list.game_id = games.game_id where user_id = 1"[response]
-		, function (err, result, fields) { // change the query to match your needs and setup
-		if (err) throw err;
-		console.log("From model: " + result);
-		response(result);		
-		
-	  });
-	});
+// Function to fetch game list data for a specific user
+exports.selectGameList = function (response) {
+    db.query(
+        "SELECT game_name, game_review from games_list join games on games.game_id = games_list.game_id WHERE user_id = ?",[1],
+        function (err, result, fields) {
+            if (err) throw err;
+            console.log("From model: " + result);
+            response(result);
+        }
+    );
 }
 
-exports.deleteFromGameList = function(response){
+// Function to delete a game from the game list
+exports.deleteFromGameList = async function (deleteData, response) {
 
-	connectServ();
+	console.log("deleted game data:", deleteData);  // Add this line
 
-	con.connect(function(err) {
-	  if (err) throw err;
-	  con.query(
-		"DELETE FROM games_list where game_id = ? and user_id = ?"[game_Id, user_Id]
-		, function (err, result, fields) { // change the query to match your needs and setup
-		if (err) throw err;
-		console.log("From model: " + result);
-		response(result);		
-		
-	  });
-	});
+	game_Id = await findGameID(deleteData.game_name);
+
+	console.log("GAME ID: " + game_Id + ":" + deleteData.userID);
+
+    console.log("DELETE QUERY:" , db.query(
+        "DELETE FROM games_list WHERE game_id = ? AND user_id = ?",
+        [game_Id, deleteData.userID],
+        function (err, result, fields) {
+            if (err) throw err;
+            console.log("From model: " + result);
+            response(result);
+        }
+    ));
 }
 
-exports.updateGameList = function(response){
+// Function to update the game data in the games table
+exports.updateGame = async function ( updatedData, response) {
+    console.log("Updated game data:", updatedData);  // Add this line
 
-	connectServ();
+	var gameName = updatedData.game_name;
 
-	con.connect(function(err) {
-	  if (err) throw err;
-	  con.query(
-		"UPDATE games_list set game_review = ? where game_id = ? and user_id = ?;"[game_review, game_Id, user_Id]
-		, function (err, result, fields) { // change the query to match your needs and setup
-		if (err) throw err;
-		console.log("From model: " + result);
-		response(result);		
-		
-	  });
-	});
+    var userID = updatedData.userID;
+    var review = updatedData.game_review;
+
+	gameId = await findGameID(gameName);
+
+    db.query(
+        "UPDATE games_list SET game_review = ? WHERE game_id = ? AND user_id = ?",
+        [review, gameId, userID],
+        function (err, result, fields) {
+            if (err) {
+                console.error(err);
+                throw err;
+            }
+
+            console.log("From model: " + result);
+            response(result);
+        }
+    );
 }
 
-exports.InsertIntoGamesList = function(response){
-	var mysql = require('mysql2');
 
-	var con = mysql.createConnection({ // change these  details to match your installation
-	  host: "localhost",
-	  user: "root",
-	  password: "1234", 
-	  database: "sys",
-	  port:3306
-	});
+// Function to add a new game to the games table
+exports.addGame = async function (gameData, callback) {
+    const {userID,  gameName, review} = gameData;
+	var gameID = await findGameID(gameName);
 
-	con.connect(function(err) {
-	  if (err) throw err;
-	  con.query(
-		"insert into games_list values(?,?);"[game_review, game_Id, user_Id]
-		, function (err, result, fields) { // change the query to match your needs and setup
-		if (err) throw err;
-		console.log("From model: " + result);
-		response(result);		
-		
-	  });
-	});
+	console.log("VAL: " + gameID)
+
+    const sql = "INSERT INTO games_list (user_id, game_id, game_review) VALUES (?, ?, ?)";
+    db.query(sql, [userID,  gameID, review], function (err, result) {
+        if (err) throw err;
+        callback(result);
+    });
 }
