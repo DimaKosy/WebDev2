@@ -1,9 +1,8 @@
 let buttonId = 0; // Initial button id
+let lastAdded;
 
 function loadMore() {
     // Increment button id and update the button text
-    buttonId++;
-    document.getElementById('load-more-button').innerText = `Load More~! ♡ (${buttonId})`;
 
     // Create and append new grids based on the data
     const gridContainer = document.getElementById('grid-container');
@@ -11,7 +10,18 @@ function loadMore() {
     newRow.className = 'row';
 
     // Use template literals to construct the correct URL
-    $.get(`/allgames/${buttonId++}`, function (data, status) {
+    $.get(`/allgames/${buttonId}`, function (data, status) {
+
+        if(data.length == 3){
+            buttonId++;
+            document.getElementById('load-more-button').innerText = `Load More!`;
+        }
+        else if(data[data.length - 1].game_name == lastAdded){
+
+            return;
+        }
+
+        
         data.forEach(function (game, i) { // Add 'i' as the second parameter
             const newGrid1 = document.createElement('div');
             newGrid1.className = 'col-lg-4';
@@ -25,7 +35,9 @@ function loadMore() {
                 <p><a class="btn btn-secondary" href="#">View details »</a></p>
             `;
             newRow.appendChild(newGrid1);
+            lastAdded = game.game_name;
         });
+    
     
         // Append the new row to the grid container
         gridContainer.appendChild(newRow);
