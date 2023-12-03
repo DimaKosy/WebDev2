@@ -1,6 +1,5 @@
-exports.selectGames = function(response){
-
-	var mysql = require('mysql2');
+function connectServ(){
+    var mysql = require('mysql2');
 
 	var con = mysql.createConnection({ // change these details to match your installation
 	  host: "localhost",
@@ -9,6 +8,11 @@ exports.selectGames = function(response){
 	  database: "sys",
 	  port:3306
 	});
+}
+
+exports.selectGames = function(response){
+
+	connectServ();
 
 	con.connect(function(err) {
 	  if (err) throw err;
@@ -23,15 +27,7 @@ exports.selectGames = function(response){
 
 exports.selectUsers = function(response){
 
-	var mysql = require('mysql2');
-
-	var con = mysql.createConnection({ // change these details to match your installation
-	  host: "localhost",
-	  user: "root",
-	  password: "1234", 
-	  database: "sys",
-	  port:3306
-	});
+	connectServ();
 
 	con.connect(function(err) {
 	  if (err) throw err;
@@ -46,15 +42,7 @@ exports.selectUsers = function(response){
 
 exports.selectGameList = function(response){
 
-	var mysql = require('mysql2');
-
-	var con = mysql.createConnection({ // change these details to match your installation
-	  host: "localhost",
-	  user: "root",
-	  password: "1234", 
-	  database: "sys",
-	  port:3306
-	});
+	connectServ();
 
 	con.connect(function(err) {
 	  if (err) throw err;
@@ -71,15 +59,7 @@ exports.selectGameList = function(response){
 
 exports.deleteFromGameList = function(response){
 
-	var mysql = require('mysql2');
-
-	var con = mysql.createConnection({ // change these details to match your installation
-	  host: "localhost",
-	  user: "root",
-	  password: "1234", 
-	  database: "sys",
-	  port:3306
-	});
+	connectServ();
 
 	con.connect(function(err) {
 	  if (err) throw err;
@@ -96,15 +76,7 @@ exports.deleteFromGameList = function(response){
 
 exports.updateGameList = function(response){
 
-	var mysql = require('mysql2');
-
-	var con = mysql.createConnection({ // change these details to match your installation
-	  host: "localhost",
-	  user: "root",
-	  password: "1234", 
-	  database: "sys",
-	  port:3306
-	});
+	connectServ();
 
 	con.connect(function(err) {
 	  if (err) throw err;
