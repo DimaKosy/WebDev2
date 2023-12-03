@@ -19,8 +19,6 @@ async function findGameID(Gamename){
 
 }
 
-
-
 // Function to fetch game data
 exports.selectGames = function (response) {
     db.query("SELECT game_name, review FROM games", function (err, result, fields) {
@@ -97,7 +95,6 @@ exports.updateGame = async function ( updatedData, response) {
     );
 }
 
-
 // Function to add a new game to the games table
 exports.addGame = async function (gameData, callback) {
     const {userID,  gameName, review} = gameData;
@@ -105,9 +102,22 @@ exports.addGame = async function (gameData, callback) {
 
 	console.log("VAL: " + gameID)
 
-    const sql = "INSERT INTO games_list (user_id, game_id, game_review) VALUES (?, ?, ?)";
-    db.query(sql, [userID,  gameID, review], function (err, result) {
-        if (err) throw err;
-        callback(result);
-    });
+    try{
+		db.query("INSERT INTO games_list (user_id, game_id, game_review) VALUES (?, ?, ?)", [userID,  gameID, review], function (err, result) {
+			if (err) console.error(err);
+			callback(result);
+		});
+	}
+	catch{
+		console.error(err);
+	}
+}
+
+//Rest get Games
+exports.LoadNextGame = function(offset,response){
+	
+	db.query("SELECT game_name from games limit 3 offset ?", [offset*3], function(err, result){
+		if (err) console.error(err);
+		response(result);
+	});
 }

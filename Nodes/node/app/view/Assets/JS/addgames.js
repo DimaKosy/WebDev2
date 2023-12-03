@@ -66,7 +66,7 @@ $(document).ready(function () {
         console.log("Adding");
 
         // Send data to the server
-        $.post("/gameAdd", {userID: 1,  gameName: gameName, review: review }, function (data, status) {
+        $.post("/game", {userID: 1,  gameName: gameName, review: review }, function (data, status) {
             // Refresh the game table after adding a new game
             fetchGameTable();
         });
