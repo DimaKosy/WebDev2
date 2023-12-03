@@ -1,13 +1,16 @@
+var con
+
 function connectServ(){
     var mysql = require('mysql2');
 
-	var con = mysql.createConnection({ // change these details to match your installation
+	con = mysql.createConnection({ // change these details to match your installation
 	  host: "localhost",
 	  user: "root",
 	  password: "1234", 
 	  database: "sys",
 	  port:3306
 	});
+
 }
 
 exports.selectGames = function(response){
@@ -31,7 +34,7 @@ exports.selectUsers = function(response){
 
 	con.connect(function(err) {
 	  if (err) throw err;
-	  con.query("SELECT user_name FROM games", function (err, result, fields) { // change the query to match your needs and setup
+	  con.query("SELECT user_name FROM user", function (err, result, fields) { // change the query to match your needs and setup
 		if (err) throw err;
 		console.log("From model: " + result);
 		response(result);		
@@ -47,7 +50,7 @@ exports.selectGameList = function(response){
 	con.connect(function(err) {
 	  if (err) throw err;
 	  con.query(
-		"SELECT game_name, game_review FROM games join games_list on games_list.game_id = games.game_id where user_id = 1"[user_Id]
+		"SELECT game_name, game_review FROM games join games_list on games_list.game_id = games.game_id where user_id = 1"[response]
 		, function (err, result, fields) { // change the query to match your needs and setup
 		if (err) throw err;
 		console.log("From model: " + result);

@@ -24,8 +24,8 @@ var cb2 = function (req, res, next) {
 }
 
 
-app.get('/edu', function (req, res) {
-	model.selectEdu(function Education(response){			
+app.get('/userList/:userID', function (req, res) {
+	model.selectGameList(function GamesList(response){			
 			console.log("From server:" + JSON.stringify(response));
 			res.send(response);
 		});
