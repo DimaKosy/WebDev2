@@ -10,24 +10,10 @@ function loadMore() {
     const newRow = document.createElement('div');
     newRow.className = 'row';
     
-    $.get("/allgames/$(buttonId)",function(data,status){
-        data.forEach(function(game)
-        {
-            const newGrid1 = document.createElement('div');
-            newRow.appendChild(newGrid1);
-
-            newGrid1.className = 'col-lg-4';
-            newGrid1.innerHTML = `
-                    <img class="bd-placeholder-img rounded-circle" width="140" height="140" src="Assets/Images/New_Image_${buttonId * 3 + i}.avif" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
-                    <title>New Placeholder</title>
-                    <rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
-                    </img>
-                    <h2 class="fw-normal">New Title ${buttonId * 3 + i}</h2>
-                    <p>New Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, omnis, soluta expedita maxime laboriosam cumque voluptatem minus porro eos labore itaque possimus a facere aut praesentium quod necessitatibus! Repellendus, alias.</p>
-                    <p><a class="btn btn-secondary" href="#">View details »</a></p>
-                `;
-                newRow.appendChild(newGrid1);
-        });
+    $.get(`/allgames/${buttonId++}`,function(data,status){
+        for(var i = 1; i < data.length;i++){
+            console.log(data[i]);
+        }
     });
     
     // for (let i = 1; i <= 3; i++) {
