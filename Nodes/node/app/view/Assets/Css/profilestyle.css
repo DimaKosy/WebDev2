@@ -64,7 +64,7 @@ body {
 
 .section {
     min-height: 100vh;
-    background: url('/Assets/Images/bg-1.jpg') no-repeat;
+    background: url('../Images/bg-1.jpg') no-repeat;
     background-size: cover;
     background-position: center;
 }
@@ -99,7 +99,7 @@ body {
     right: 0;
     width: 45px;
     height: 45px;
-    background: #fff;
+    background-color: #fff;
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -109,7 +109,7 @@ body {
 
 .icon-close i {
     font-size: 32px;
-    color: #333;
+    color: black;
 }
 
 .wrapper .logreg-box {
