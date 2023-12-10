@@ -8,6 +8,7 @@ var model = require('../model/select');
 var session = require('express-session');
 var validator = require('validator');
 var bcrypt = require('bcrypt');
+const { resolve } = require("path");
 
 ////////
 
@@ -62,7 +63,9 @@ app.get("/login", function(req, res){
 
 });
 
-app.get("/register/:username/:email/:pwd", async function(req, res){
+app.post("/register/:username/:email/:pwd", async function(req, res){
+
+
     var user = req.params.username;
     var email = req.params.email;
     var pwd = req.params.pwd;
@@ -82,33 +85,19 @@ app.get("/register/:username/:email/:pwd", async function(req, res){
     console.log("user: " + user + " hash: " + hash);
     data = {user, email, hash};
 
-    model.Register(data, function(response){
-        console.log(Object.values(response[0])[0]);
-		res.send(response);
-	});
-    console.log(req.session.user);
-
-
-//     var mySavedPwd;
-		
-// 		for (i in users)
-// 			if (users[i].username == user)
-// 				mySavedPwd = users[i].hashed_pwd
+    req.session.user = await new Promise((resolve, reject)=>{
+        model.Register(data, function(response){
+            console.log(Object.values(response[0])[0]);
+            resolve(Object.values(response[0])[0]);
+        })
+        
+    });
     
-//         bcrypt.compare(pwd, mySavedPwd, function(err, result) {
-//   			if(result) {
-//                 // Passwords match
-//                 console.log("Logged In.");
-//                 req.session.user = user;
-//                 // res.redirect("/bar");
-//                 res.send("Welcome, " + user);
-//             } else {
-//                 // Passwords don't match
-//                 console.log("Sorry.");
-//                 res.send("Invalid details");
-//             } 
-//         });
-
+    console.log("REDIRECTING");
+    console.log(req.session.user);
+    
+    console.log("POST REDIRECTING");
+    res.send();
 });
 
 app.post("/logout", function (req, res){
@@ -118,6 +107,7 @@ app.post("/logout", function (req, res){
         }
         res.send("You have been logged out.");
 	});	
+
 });
 
 // Endpoint for fetching game data (GET request)
@@ -177,6 +167,10 @@ app.get('/allgames/:offset', function(req, res){
 		res.send(response);
 	});
     console.log(req.session.user);
+});
+
+app.get("/testredirect", function(req, res) {
+    res.redirect("/profile.html");
 });
 
 http.createServer(app).listen(8080);

@@ -5,11 +5,19 @@ function GrabFormRegister(){
 
     console.log("Email: " + email +"\nPwd: "+ pwd);
 
-    $.get(`/register/${username}/${email}/${pwd}`, function(req, status){
-    });
+    $.post(`/register/${username}/${email}/${pwd}`, function(req, status){
+    }).done(function() {
+        $.get(`testredirect`, function(req, res) );
+      });
+
+    
 }
 
-function OnRegLog(key){  
+function redirectProfile(){
+    window.location.href("/profile.html")
+}
+
+function OnFailRegister(key){  
     switch(key){
         case -1:
 
