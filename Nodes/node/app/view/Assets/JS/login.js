@@ -9,7 +9,7 @@ function GrabFormRegister(){
     });
 }
 
-function OnFailRegLog(key){  
+function OnRegLog(key){  
     switch(key){
         case -1:
 
