@@ -1,12 +1,22 @@
 const { response } = require('express');
 var mysql = require('mysql2');
 var db = mysql.createConnection({
-    host: "localhost",
+    host: "127.0.0.1",
     user: "root",
-    password: "seriousSql1",
-    database: "mydb",
+    password: "1234",
+    database: "sys",
     port: 3306
 });
+
+async function getUserID(username){
+    return new Promise((resolve, reject) => {
+        db.query("select GetUserIDByUsername(?) as result;",[seurname]),function(err, result){
+            if (err) throw err;
+			console.log(result[0].result);
+			resolve(result[0].result);
+        }
+    })
+}
 
 async function findGameID(Gamename){
 	return new Promise((resolve, reject) => {
@@ -117,6 +127,17 @@ exports.addGame = async function (gameData, callback) {
 exports.LoadNextGame = function(offset,response){
 	
 	db.query("SELECT game_name from games limit 3 offset ?", [offset*3], function(err, result){
+		if (err) console.error(err);
+		response(result);
+	});
+}
+
+//Register
+exports.Register = function(data,response){
+	console.log(data);
+
+    
+	db.query("SELECT InsertUser(?,?,?)", [data.email, data.user, data.hash], function(err, result){
 		if (err) console.error(err);
 		response(result);
 	});

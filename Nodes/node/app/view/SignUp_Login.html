@@ -9,6 +9,8 @@
     <link rel="preload" as="style"
         href="https://fonts.googleapis.com/css?family=Poppins:wght@300;400;500;600;700;800;900&display=swap">
     <link rel="stylesheet" href="Assets/Css/profilestyle.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="Assets/JS/login.js"></script>
 </head>
 
 
@@ -75,19 +77,19 @@
                     <form action="#">
                         <div class="input-box">
                             <span class="icon"><i class='bx bxs-user'></i></span>
-                            <input type="text" required>
+                            <input id="nameInput" type="text" required>
                             <label>Full Name</label>
                         </div>
 
                         <div class="input-box">
                             <span class="icon"><i class='bx bxs-envelope'></i></span>
-                            <input type="email" required>
+                            <input id="emailInput" type="email" required>
                             <label>Email</label>
                         </div>
 
                         <div class="input-box">
                             <span class="icon"><i class='bx bxs-lock-alt'></i></span>
-                            <input type="password" required>
+                            <input id="pwdInput" type="password" required>
                             <label>Password</label>
                         </div>
 
@@ -95,7 +97,7 @@
                             <label><input type="checkbox"> I agree to the terms & conditions</label>
                         </div>
 
-                        <button type="submit" class="btn">Register</button>
+                        <button type="submit" class="btn" onclick="GrabFormRegister()">Register</button>
 
                         <div class="logreg-link">
                             <p>Already have an account? <a href="#" class="login-link">Login</a></p>
