@@ -7,7 +7,9 @@ function GrabFormRegister(){
 
     $.post(`/register/${username}/${email}/${pwd}`, function(req, status){
     }).done(function() {
-        $.get(`testredirect`, function(req, res) );
+        $.get(`testredirect`, function(req, res) {
+            
+        });
       });
 
     
