@@ -23,12 +23,13 @@ function loadMore() {
             return;
         }
 
-
+        //src="Assets/Images/gamesimage_${buttonId * 3 + i}.jpg" 
         data.forEach(function (game, i) { // Add 'i' as the second parameter
             const newGrid1 = document.createElement('div');
             newGrid1.className = 'col-lg-4';
             newGrid1.innerHTML = `
-                <img class="bd-placeholder-img rounded-circle" width="140" height="140" src="Assets/Images/gamesimage_${buttonId * 3 + i}.jpg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
+                
+                <img class="bd-placeholder-img rounded-circle" width="140" height="140" src="Assets/Images/gamesimage.jpg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
                 <title>Game Image</title>
                 <rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
                 </img>
