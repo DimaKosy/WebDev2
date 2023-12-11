@@ -193,7 +193,10 @@ app.get('/allgames/:offset', function(req, res){
 // });
 
 
-
+app.get('/profile', function(res,req){
+    result = "A";
+    res.send(result);
+});
 
 app.get("/testredirect", function(req, res) {
     console.log("USER" + req.session.user);
