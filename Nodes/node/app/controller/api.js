@@ -105,15 +105,13 @@ app.get("/login", function(req, res){
 //     }
 // });
 
-app.post("/register", (req, res) =>{
+app.post("/register", function(req, res) {
     var user = req.body.nameInput;
     var email = req.body.emailInput;
     var pwd = req.body.pwdInput;
 
     req.session.user = user;
     req.session.email = email;
-    req.session.pwd = pwd;
-
 
     console.log("USER:" + user);
     return res.redirect("/profile.html");
@@ -193,9 +191,14 @@ app.get('/allgames/:offset', function(req, res){
 // });
 
 
-app.get('/profile', function(res,req){
-    result = "A";
-    res.send(result);
+app.get('/profile', function(req, res){
+    data = req.session.user;
+    
+
+    
+    model.LoadProfile(data, function(response){
+        res.send(response);
+    });
 });
 
 app.get("/testredirect", function(req, res) {

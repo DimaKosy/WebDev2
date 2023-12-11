@@ -10,11 +10,7 @@
 //     });
 // }
 
-function LoadUser(){
-    $.get(`/profile`, function (data, status) {
-        console.log(data);
-    });
-}
+
 
 
 
