@@ -74,22 +74,22 @@
                         <p>Please provide the following to verify your identity</p>
                     </div>
 
-                    <form>
+                    <form method="POST" action="/register">
                         <div class="input-box">
                             <span class="icon"><i class='bx bxs-user'></i></span>
-                            <input id="nameInput" type="text" required>
+                            <input id="nameInput" name="nameInput" type="text" required>
                             <label>Full Name</label>
                         </div>
 
                         <div class="input-box">
                             <span class="icon"><i class='bx bxs-envelope'></i></span>
-                            <input id="emailInput" type="email" required>
+                            <input id="emailInput" name = "emailInput" type="email" required>
                             <label>Email</label>
                         </div>
 
                         <div class="input-box">
                             <span class="icon"><i class='bx bxs-lock-alt'></i></span>
-                            <input id="pwdInput" type="password" required>
+                            <input id="pwdInput" name="pwdInput" type="password" required>
                             <label>Password</label>
                         </div>
 
@@ -97,7 +97,7 @@
                             <label><input type="checkbox"> I agree to the terms & conditions</label>
                         </div>
 
-                        <button type="submit" class="btn" onclick="GrabFormRegister()">Register</button>
+                        <button type="submit" class="btn">Register</button>
 
                         <div class="logreg-link">
                             <p>Already have an account? <a class="login-link">Login</a></p>

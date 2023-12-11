@@ -3,7 +3,6 @@ var session = require('express-session');
 var http = require("http");
 var app = express();
 var model = require('../model/select');
-
 ///////Login
 
 var validator = require('validator');
@@ -11,6 +10,7 @@ var bcrypt = require('bcrypt');
 const { resolve } = require("path");
 const { redirect } = require("express/lib/response");
 var path = require('path');
+
 ////////
 
 app.use(express.static(__dirname + "/../view"));
@@ -66,42 +66,57 @@ app.get("/login", function(req, res){
 
 });
 
-app.post("/register/:username/:email/:pwd", async function(req, res){
-    try{
-        var user = req.params.username;
-        var email = req.params.email;
-        var pwd = req.params.pwd;
-        var hash = pwd;
-        user = validator.blacklist(user, '/\{}:;'); // missing  ' and "" for full JSON sanitization
-        // don't edit the pwd, it will not be inserted plain in the DB, no risk of code injection
+// app.post("/register/:username/:email/:pwd", async function(req, res){
+//     try{
+//         var user = req.params.username;
+//         var email = req.params.email;
+//         var pwd = req.params.pwd;
+//         var hash = pwd;
+//         user = validator.blacklist(user, '/\{}:;'); // missing  ' and "" for full JSON sanitization
+//         // don't edit the pwd, it will not be inserted plain in the DB, no risk of code injection
 
-        console.log("user: " + user + " pwd: " + pwd);
+//         console.log("user: " + user + " pwd: " + pwd);
 
-        hash = await new Promise((resolve, reject) => { 
-            bcrypt.hash(pwd, saltRounds, function(err, hash) { // every time you calculate an hash it will be different, but match the same origin
-            console.log("hashed: " + hash);
-            resolve(hash);
-        });
-        });
+//         hash = await new Promise((resolve, reject) => { 
+//             bcrypt.hash(pwd, saltRounds, function(err, hash) { // every time you calculate an hash it will be different, but match the same origin
+//             console.log("hashed: " + hash);
+//             resolve(hash);
+//         });
+//         });
 
-        console.log("user: " + user + " hash: " + hash);
-        data = {user, email, hash};
+//         console.log("user: " + user + " hash: " + hash);
+//         data = {user, email, hash};
 
-        req.session.user = await new Promise((resolve, reject)=>{
-            model.Register(data, function(response){
-                console.log(Object.values(response[0])[0]);
-                resolve(Object.values(response[0])[0]);
-            })
+//         req.session.user = await new Promise((resolve, reject)=>{
+//             model.Register(data, function(response){
+//                 console.log(Object.values(response[0])[0]);
+//                 resolve(Object.values(response[0])[0]);
+//             })
             
-        });
+//         });
         
-        console.log("REDIRECTING");
-        console.log("EO REDIRECTING");
-        return res.redirect("/profile");
-    } catch (error) {
-        console.error(error);
-        res.status(500).send("Internal Server Error");
-    }
+//         console.log("REDIRECTING");
+//         console.log("EO REDIRECTING");
+//         return res.redirect("/profile.html");
+        
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).send("Internal Server Error");
+//     }
+// });
+
+app.post("/register", (req, res) =>{
+    var user = req.body.nameInput;
+    var email = req.body.emailInput;
+    var pwd = req.body.pwdInput;
+
+    req.session.user = user;
+    req.session.email = email;
+    req.session.pwd = pwd;
+
+
+    console.log("USER:" + user);
+    return res.redirect("/profile.html");
 });
 
 app.post("/logout", function (req, res){
@@ -173,9 +188,11 @@ app.get('/allgames/:offset', function(req, res){
     console.log(req.session.user);
 });
 
-app.get("/profile", function(req, res) {
-    return res.redirect(`/profile.html`);
-});
+// app.get("/profile", function(req, res) {
+    
+// });
+
+
 
 
 app.get("/testredirect", function(req, res) {
