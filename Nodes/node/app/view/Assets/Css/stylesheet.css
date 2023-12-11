@@ -12310,6 +12310,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   margin-top: 70px;
+  margin-bottom: 20px;
   /* Adjust the value based on your header height */
 }
 
@@ -12347,6 +12348,8 @@ body {
   padding: 20px;
   /* Added padding for better visibility of the background color */
   border-radius: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   /* Added border-radius for rounded corners */
 }
 
@@ -12364,36 +12367,100 @@ body {
 
 .footer {
   background-color: #5bc0de;
-  /* Light blue background color */
+  
   color: #fff;
-  /* White text color */
+  
   padding: 15px;
-  /* Added padding for better visibility */
+  
   text-align: center;
-  /* Center-align text */
+  
   border-radius: 10px;
-  /* Added border-radius for rounded corners */
-  margin-top: 20px;
-  /* Adjust the margin for better spacing */
+  
+  margin-top: 2px;
+  
 }
 
 /* Media Query for Larger Screens */
 @media (min-width: 768px) {
   .profile-info {
-    flex-basis: calc(33.333% - 20px);
+    flex-basis: calc(50% - 20px);
     /* 1/3 of the available space, accounting for margin */
     margin-right: 20px;
+    margin-top: 20px;
   }
 
   .game-table {
-    flex-basis: calc(66.666% - 20px);
+    flex-basis: calc(100% - 20px);
     /* 2/3 of the available space, accounting for margin */
   }
 }
+.navbar {
+  background-color: #1a1a1a;
+}
 
-.login {
+.navbar-brand,
+.nav-link {
+  color: #ffffff;
+}
+
+.container {
   min-height: 100vh;
-  background: url(Assets/Images/bg-1.jpg);
+  /*background: url('../Images/bg-1.jpg') no-repeat;*/
   background-size: cover;
   background-position: center;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  border-radius: 10px;
+}
+
+
+#load-more-button {
+  background-color: #ff9900;
+  /* Set your desired background color */
+  color: #ffffff;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+}
+
+.centered-button {
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  /* Adjust the padding as needed */
+}
+
+.featurette {
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+.featurette-heading,
+.lead {
+  color: #ffffff;
+}
+
+.game-input{
+  margin-bottom: 20px;
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+    
+  
+.game-input input,
+.game-input button {
+    margin: 10px 0; /* Add margin for spacing between input and button*/
+}
+
+.game-table-title {
+  color: black;  
 }

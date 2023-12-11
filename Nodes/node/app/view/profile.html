@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en">
 
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -8,18 +8,11 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.118.2">
-    <title>Profile_Page</title>
+    <title>User Profile</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/carousel/">
     <link rel="stylesheet" href="Assets/Css/stylesheet.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="Assets/JS/addgames.js"></script>
-
-
-    <!--<link href="Carousel%20Template%20%C2%B7%20Bootstrap%20v5.3_files/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    -->
-
 
     <!-- Favicons -->
     <link rel="apple-touch-icon" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/apple-touch-icon.png"
@@ -34,16 +27,14 @@
     <link rel="icon" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/favicon.ico">
     <meta name="theme-color" content="#712cf9">
 
-    <!-- Needs to be cleaned up into an actual css stylesheet linked to the project-->
-
 </head>
 
 <body>
 
-    <header data-bs-theme="dark">
+    <header class="dark-theme">
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Gaming</a>
+                <a class="navbar-brand" href="index.html">Gaming News INC</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -51,24 +42,15 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <ul class="navbar-nav me-auto mb-2 mb-md-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="index.html">Games</a>
+                            <a class="nav-link active" aria-current="page" href="index.html">Games Hub</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="profile.html">Profiles</a>
+                            <a class="nav-link" href="profile.html">My Profile</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="SignUp_Login.html">Login</a>
-                          </li>
+                        </li>
                     </ul>
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="email" placeholder="Email" aria-label="Email" required>
-                        <input class="form-control me-2" type="password" placeholder="Password" aria-label="Password"
-                            required>
-                        <button class="btn btn-outline-success" type="submit">Login</button>
-                        <button class="btn btn-outline-success" type="Sign Up!">Sign up</button>
-                        <!-- Request to login or sign up -->
-                    </form>
-
                 </div>
             </div>
         </nav>
@@ -77,7 +59,7 @@
     <div class="container">
         <main>
             <div class="profile-container">
-                <div class="profile-info bg-secondary">
+                <div class="profile-info col-md-6 center-block bg-secondary half-width">
                     <!-- Left Column: Username and User Profile Picture -->
                     <h2 class="text-light">Username: The Great Wizard</h2>
 
@@ -105,9 +87,23 @@
                     </div>
                 </div>
 
-                <div class="game-table bg-light">
+                <!-- Input Fields for New Game -->
+                <div class="game-input col-md-6 center-block bg-secondary half-width">
+                    <h2 class="text-light">Add New Game</h2>
+                    <div>
+                        <label for="gameNameInput">Game Name:</label>
+                        <input type="text" id="gameNameInput" placeholder="Enter Game Name">
+                    </div>
+                    <div>
+                        <label for="reviewInput">Your Review:</label>
+                        <input type="text" id="reviewInput" placeholder="Enter Review">
+                    </div>
+                    <button class="btn btn-success" id="addGame">Add Game</button>
+                </div>
+
+                <div class="game-table col-md-12 center-block bg-light full-width">
                     <!-- Right Column: Game Table -->
-                    <h2>Game Table</h2>
+                    <h2 class="game-table-title">Game Table</h2>
                     <table class="table" id="gameTable">
                         <thead>
                             <tr>
@@ -121,24 +117,11 @@
                         </tbody>
                     </table>
                 </div>
-                
-                <!-- Input Fields for New Game -->
-                <div class="game-input">
-                    <h2>Add New Game</h2>
-                    <div>
-                        <label for="gameNameInput">Game Name:</label>
-                        <input type="text" id="gameNameInput" placeholder="Enter Game Name">
-                    </div>
-                    <div>
-                        <label for="reviewInput">Review:</label>
-                        <input type="text" id="reviewInput" placeholder="Enter Review">
-                    </div>
-                    <button class="btn btn-success" id="addGame">Add Game</button>
-                </div>
-                
+
             </div>
         </main>
     </div>
+
     <!-- Basic Footer -->
     <footer class="footer">
         <p>&#169; 2023 Reserved rights</p>

@@ -28,8 +28,8 @@ function loadMore() {
             const newGrid1 = document.createElement('div');
             newGrid1.className = 'col-lg-4';
             newGrid1.innerHTML = `
-                <img class="bd-placeholder-img rounded-circle" width="140" height="140" src="Assets/Images/New_Image_${buttonId * 3 + i}.avif" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
-                <title>New Placeholder</title>
+                <img class="bd-placeholder-img rounded-circle" width="140" height="140" src="Assets/Images/gamesimage_${buttonId * 3 + i}.jpg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
+                <title>Game Image</title>
                 <rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
                 </img>
                 <h2 class="fw-normal"> ${game.game_name}</h2>
