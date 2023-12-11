@@ -26,7 +26,7 @@ app.use(session({
 
 const saltRounds = 10;
 
-session.user = -1;
+session.user_id = -1;
 
 
 app.get("/login", function(req, res){
@@ -105,14 +105,41 @@ app.get("/login", function(req, res){
 //     }
 // });
 
-app.post("/register", function(req, res) {
+app.post("/register", async function(req, res) {
     var user = req.body.nameInput;
     var email = req.body.emailInput;
     var pwd = req.body.pwdInput;
 
-    req.session.user = user;
-    req.session.email = email;
+    user = validator.blacklist(user, '/\{}:;'); // missing  ' and "" for full JSON sanitization
+        // don't edit the pwd, it will not be inserted plain in the DB, no risk of code injection
 
+    console.log("user: " + user + " pwd: " + pwd);
+
+    hash = await new Promise((resolve, reject) => { 
+            bcrypt.hash(pwd, saltRounds, function(err, hash) { // every time you calculate an hash it will be different, but match the same origin
+            console.log("hashed: " + hash);
+            resolve(hash);
+        });
+    });
+
+
+    data = {user, email, hash};
+    req.session.user_id = await new Promise((resolve, reject)=>{
+        model.Register(data, function(response){
+            console.log(Object.values(response[0])[0]);
+            resolve(Object.values(response[0])[0]);
+        })
+        
+    });
+
+    console.log("register check: " + req.session.user_id);
+    console.log((req.session.user_id <= 0 ));
+    if(req.session.user_id <= 0 ){
+        return res.send("EMAIL ALREADY REGISTERED");
+    }
+
+
+    req.session.user = user;
     console.log("USER:" + user);
     return res.redirect("/profile.html");
 });

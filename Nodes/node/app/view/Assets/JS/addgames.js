@@ -3,6 +3,9 @@ function LoadUser(){
         console.log("LOADING : " + data +" :");
         document.getElementById('UsernameBox').innerText = data;
     });
+
+
+    
 }
 
 $(document).ready(function () {
