@@ -142,3 +142,7 @@ exports.Register = function(data,response){
 		response(result);
 	});
 }
+
+exports.LoadProfile = function(data,response){
+    response(data)
+}

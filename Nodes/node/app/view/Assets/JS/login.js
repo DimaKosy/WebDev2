@@ -1,14 +1,16 @@
 
-function GrabFormRegister(){
-    username = document.getElementById('nameInput').value;
-    email = document.getElementById('emailInput').value;
-    pwd = document.getElementById('pwdInput').value;
+// function GrabFormRegister(){
+//     username = document.getElementById('nameInput').value;
+//     email = document.getElementById('emailInput').value;
+//     pwd = document.getElementById('pwdInput').value;
 
-    console.log("Email: " + email +"\nPwd: "+ pwd);
+//     console.log("Email: " + email +"\nPwd: "+ pwd);
 
-    $.post(`/register/${username}/${email}/${pwd}`, function(req, status){
-    });
-}
+//     $.post(`/register/${username}/${email}/${pwd}`, function(req, status){
+//     });
+// }
+
+
 
 
 

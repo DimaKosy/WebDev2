@@ -1,5 +1,13 @@
+function LoadUser(){
+    $.get(`/profile`, function (data, status) {
+        console.log("LOADING : " + data +" :");
+        document.getElementById('UsernameBox').innerText = data;
+    });
+}
+
 $(document).ready(function () {
     // Function to fetch and display the game table
+
     function fetchGameTable() {
         // Perform an AJAX request to get the game data from your server
         $.get("/games", function (data, status) {
