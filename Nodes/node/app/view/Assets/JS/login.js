@@ -1,3 +1,4 @@
+
 function GrabFormRegister(){
     username = document.getElementById('nameInput').value;
     email = document.getElementById('emailInput').value;
@@ -6,18 +7,10 @@ function GrabFormRegister(){
     console.log("Email: " + email +"\nPwd: "+ pwd);
 
     $.post(`/register/${username}/${email}/${pwd}`, function(req, status){
-    }).done(function() {
-        $.get(`testredirect`, function(req, res) {
-            
-        });
-      });
-
-    
+    });
 }
 
-function redirectProfile(){
-    window.location.href("/profile.html")
-}
+
 
 function OnFailRegister(key){  
     switch(key){
