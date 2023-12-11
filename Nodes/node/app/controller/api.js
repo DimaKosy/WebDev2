@@ -96,9 +96,8 @@ app.post("/register/:username/:email/:pwd", async function(req, res){
         });
         
         console.log("REDIRECTING");
-        console.log(path.join(__dirname, '/../view/profile.html'));
         console.log("EO REDIRECTING");
-        return res.sendFile(path.join(__dirname, '/../view/profile.html'));
+        return res.redirect("/profile");
     } catch (error) {
         console.error(error);
         res.status(500).send("Internal Server Error");
@@ -174,10 +173,12 @@ app.get('/allgames/:offset', function(req, res){
     console.log(req.session.user);
 });
 
-app.get("/testredirect", function(req, res) {
-    while(!(req.session.user >= 0)){
+app.get("/profile", function(req, res) {
+    return res.redirect(`/profile.html`);
+});
 
-    }
+
+app.get("/testredirect", function(req, res) {
     console.log("USER" + req.session.user);
     //return res.redirect(`/profile.html`);
 });
