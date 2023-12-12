@@ -33,8 +33,8 @@ function loadMore() {
                 <rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
                 </img>
                 <h2 class="fw-normal"> ${game.game_name}</h2>
-                <p>New Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, omnis, soluta expedita maxime laboriosam cumque voluptatem minus porro eos labore itaque possimus a facere aut praesentium quod necessitatibus! Repellendus, alias.</p>
-                <p><a class="btn btn-secondary" href="#">View details »</a></p>
+                <div id="reviewContainer"></div>
+                <button id="get-review" onclick="getreview()" class="btn btn-secondary">View Review</button>
             `;
             newRow.appendChild(newGrid1);
             lastAdded = game.game_name;
