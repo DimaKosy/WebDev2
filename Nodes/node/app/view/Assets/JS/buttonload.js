@@ -35,7 +35,7 @@ function loadMore() {
                 </img>
                 <h2 class="fw-normal"> ${game.game_name}</h2>
                 <p>New Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, omnis, soluta expedita maxime laboriosam cumque voluptatem minus porro eos labore itaque possimus a facere aut praesentium quod necessitatibus! Repellendus, alias.</p>
-                <p><a class="btn btn-secondary" href="#">View details »</a></p>
+                <p><a class="btn btn-secondary" href="#">View Review »</a></p>
             `;
             newRow.appendChild(newGrid1);
             lastAdded = game.game_name;
