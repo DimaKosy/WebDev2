@@ -39,18 +39,26 @@ exports.selectGames = function (response) {
 }
 
 // Function to fetch user data
-exports.selectUsers = function (response) {
-    db.query("SELECT user_name FROM games", function (err, result, fields) {
+exports.selectUsers = function (userEmail, response) {
+    db.query("SELECT GetUserIDByEmail(?) as result;", [userEmail], function (err, result, fields) {
         if (err) throw err;
         console.log("From model: " + result);
         response(result);
     });
 }
 
+exports.selectUserPassword = function (userID, response) {
+    db.query("SELECT user_password from user where user_id = ?;", [userID], function (err, result, fields) {
+        if (err) throw err;
+        response(result);
+    });
+}
+
 // Function to fetch game list data for a specific user
-exports.selectGameList = function (response) {
+exports.selectGameList = function (userID,response) {
+
     db.query(
-        "SELECT game_name, game_review from games_list join games on games.game_id = games_list.game_id WHERE user_id = ?",[1],
+        "SELECT game_name, game_review from games_list join games on games.game_id = games_list.game_id WHERE user_id = ?",[userID],
         function (err, result, fields) {
             if (err) throw err;
             console.log("From model: " + result);
@@ -110,7 +118,7 @@ exports.addGame = async function (gameData, callback) {
     const {userID,  gameName, review} = gameData;
 	var gameID = await findGameID(gameName);
 
-	console.log("VAL: " + gameID)
+	console.log("VAL: " + gameData);
 
     try{
 		db.query("INSERT INTO games_list (user_id, game_id, game_review) VALUES (?, ?, ?)", [userID,  gameID, review], function (err, result) {

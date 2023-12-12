@@ -11,7 +11,18 @@
 // }
 
 
+function LoadUser(){
+    $.get(`/profile`, function (data, status) {
+        console.log(data[0] == null);
 
+        if(data[0] == null){
+            document.location.replace("/SignUp_Login.html")
+            return;
+        }
+
+        document.getElementById('UsernameBox').innerText = ("Hello " + data);
+    });    
+}
 
 
 function OnFailRegister(key){  

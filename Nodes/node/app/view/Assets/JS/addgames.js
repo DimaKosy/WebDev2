@@ -1,9 +1,4 @@
-function LoadUser(){
-    $.get(`/profile`, function (data, status) {
-        console.log("LOADING : " + data +" :");
-        document.getElementById('UsernameBox').innerText = data;
-    });
-}
+
 
 $(document).ready(function () {
     // Function to fetch and display the game table
@@ -74,7 +69,7 @@ $(document).ready(function () {
         console.log("Adding");
 
         // Send data to the server
-        $.post("/game", {userID: 1,  gameName: gameName, review: review }, function (data, status) {
+        $.post("/game", {userID: 0, userName : 0,  gameName: gameName, review: review }, function (data, status) {
             // Refresh the game table after adding a new game
             fetchGameTable();
         });
@@ -88,15 +83,15 @@ $(document).ready(function () {
         var updatedReview = prompt("Enter the updated review:", $(this).closest("tr").find("td:eq(1)").text());
 
         // Send the updated data to the server
-        $.ajax({
-            url: `/games/${0}`,
-            method: 'PUT',
-            data: {userID: 1, game_name: updatedGameName, game_review: updatedReview },
-            success: function (data, status) {
-                // Refresh the game table after editing a game
-                fetchGameTable();
-            }
-        });
+        // $.ajax({
+        //     url: `/games/${0}`,
+        //     method: 'PUT',
+        //     data: {userID: 1, game_name: updatedGameName, game_review: updatedReview },
+        //     success: function (data, status) {
+        //         // Refresh the game table after editing a game
+        //         fetchGameTable();
+        //     }
+        // });
     });
 
     // Delete Button Click Event
@@ -106,14 +101,14 @@ $(document).ready(function () {
         console.log("NAME: " + GameName);
 
         // Send request to delete game
-        $.ajax({
-            url: `/games/${0}`,
-            method: 'DELETE',
-            data: {userID: 1, game_name: GameName},
-            success: function (data, status) {
-                // Refresh the game table after deleting a game
-                fetchGameTable();
-            }
-        });
+        // $.ajax({
+        //     url: `/games/${0}`,
+        //     method: 'DELETE',
+        //     data: {userID: 1, game_name: GameName},
+        //     success: function (data, status) {
+        //         // Refresh the game table after deleting a game
+        //         fetchGameTable();
+        //     }
+        // });
     });
 });
