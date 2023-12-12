@@ -20,22 +20,19 @@ app.use(express.urlencoded({ extended: true }));
 app.use(session({
     secret: 'secretSecretsecret', // used to sign the session ID cookie
     resave: false, // session NOT saved back to the store if not modified
-    saveUninitialized: false, // choosing false is useful for login sessions
+    saveUninitialized: true, // choosing false is useful for login sessions
     cookie: { maxAge: 60000 } // milliseconds to expire
 }));
 
 const saltRounds = 10;
 
-session.user_id = -1;
-
-
-app.get("/login", function(req, res){
-    var user = req.body.user;
-    var pwd = req.body.pwd;
+app.post("/login", async function(req, res){
+    var user = req.body.emailInput;
+    var pwd = req.body.pwdInput;
 
     console.log(req.session.user);
 
-    user = validator.blacklist(user, '/\{}:;'); // missing  ' and "" for full JSON sanitization
+    //user = validator.blacklist(user, '/\{}:;'); // missing  ' and "" for full JSON sanitization
     // don't edit the pwd, it will not be inserted plain in the DB, no risk of code injection
 
     console.log("user: " + user + " pwd: " + pwd);
@@ -44,66 +41,36 @@ app.get("/login", function(req, res){
         console.log("hashed: " + hash);
     });
 
-    var mySavedPwd;
-		
-		for (i in users)
-			if (users[i].username == user)
-				mySavedPwd = users[i].hashed_pwd
-    
-        bcrypt.compare(pwd, mySavedPwd, function(err, result) {
-  			if(result) {
-                // Passwords match
-                console.log("Logged In.");
-                req.session.user = user;
-                // res.redirect("/bar");
-                res.send("Welcome, " + user);
-            } else {
-                // Passwords don't match
-                console.log("Sorry.");
-                res.send("Invalid details");
-            } 
-        });
+    //Query password
+    var userID = await new Promise((resolve, reject)=>{
+        model.selectUsers(user, function(response){
+            console.log("UID: " + Object.values(response[0])[0]);
+            resolve(Object.values(response[0])[0]);
+        })
+    });
+
+    console.log("GET PWD: " + userID);
+    var userPwd = await new Promise((resolve, reject)=>{
+        model.selectUserPassword(userID, function(response){
+            console.log("PWD: " + Object.values(response[0])[0]);
+            resolve(Object.values(response[0])[0]);
+        })
+    });
+
+    bcrypt.compare(pwd, userPwd, function(err, result) {
+  		if(result) {
+            console.log("Welcome");
+            req.session.user = "null";
+            req.session.user_id = userID;
+            return res.redirect("/profile.html");
+        } else {
+            // Passwords don't match
+            console.log("Sorry.");
+            res.send("Invalid details");
+        } 
+    });
 
 });
-
-// app.post("/register/:username/:email/:pwd", async function(req, res){
-//     try{
-//         var user = req.params.username;
-//         var email = req.params.email;
-//         var pwd = req.params.pwd;
-//         var hash = pwd;
-//         user = validator.blacklist(user, '/\{}:;'); // missing  ' and "" for full JSON sanitization
-//         // don't edit the pwd, it will not be inserted plain in the DB, no risk of code injection
-
-//         console.log("user: " + user + " pwd: " + pwd);
-
-//         hash = await new Promise((resolve, reject) => { 
-//             bcrypt.hash(pwd, saltRounds, function(err, hash) { // every time you calculate an hash it will be different, but match the same origin
-//             console.log("hashed: " + hash);
-//             resolve(hash);
-//         });
-//         });
-
-//         console.log("user: " + user + " hash: " + hash);
-//         data = {user, email, hash};
-
-//         req.session.user = await new Promise((resolve, reject)=>{
-//             model.Register(data, function(response){
-//                 console.log(Object.values(response[0])[0]);
-//                 resolve(Object.values(response[0])[0]);
-//             })
-            
-//         });
-        
-//         console.log("REDIRECTING");
-//         console.log("EO REDIRECTING");
-//         return res.redirect("/profile.html");
-        
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).send("Internal Server Error");
-//     }
-// });
 
 app.post("/register", async function(req, res) {
     var user = req.body.nameInput;
@@ -129,7 +96,6 @@ app.post("/register", async function(req, res) {
             console.log(Object.values(response[0])[0]);
             resolve(Object.values(response[0])[0]);
         })
-        
     });
 
     console.log("register check: " + req.session.user_id);
@@ -156,12 +122,18 @@ app.post("/logout", function (req, res){
 
 // Endpoint for fetching game data (GET request)
 app.get('/games', function (req, res) {
-    model.selectGameList(function Games(response) {
+
+    userID = req.session.user_id;
+
+    model.selectGameList(userID , function (response) {
         console.log("From server:" + JSON.stringify(response));
 
         // Add game_id to each game object in the response
+        
         const gamesWithId = response.map(game => ({
             ...game,
+            userID: req.session.user_id, 
+            userName : req.session.user,
             game_name: game.game_name,
 			game_review: game.game_review
         }));
@@ -173,7 +145,7 @@ app.get('/games', function (req, res) {
 // Endpoint for adding game data (POST request)
 app.post('/game', function (req, res) {
     var newData = req.body;
-
+    newData.userID = req.session.user_id;
 	console.log("Adding");
 
     model.addGame(newData, function (response) {
@@ -213,24 +185,30 @@ app.get('/allgames/:offset', function(req, res){
     console.log(req.session.user);
 });
 
-// app.get("/profile", function(req, res) {
-    
-// });
-
+app.post("/logout", function (req, res){
+	req.session.destroy( function (err) {
+		if(err) {
+            return console.log(err);
+        }
+        res.send("You have been logged out.");
+	});	
+});
 
 app.get('/profile', function(req, res){
-    data = req.session.user;
+    data = [req.session.user, ""];
     
 
-    
     model.LoadProfile(data, function(response){
         res.send(response);
     });
 });
 
-app.get("/testredirect", function(req, res) {
-    console.log("USER" + req.session.user);
-    //return res.redirect(`/profile.html`);
+app.get('/sessionVar', function(req, res){
+
+});
+
+app.post('/loginRedirect', function(req, res){
+    return res.redirect(`/SignUp_Login.html`);
 });
 
 http.createServer(app).listen(8080);

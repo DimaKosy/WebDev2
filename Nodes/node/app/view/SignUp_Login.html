@@ -41,16 +41,16 @@
                         <p>Please login to use the platform</p>
                     </div>
 
-                    <form action="#">
+                    <form method="POST" action="/login">
                         <div class="input-box">
                             <span class="icon"><i class='bx bxs-envelope'></i></span>
-                            <input type="email" required>
+                            <input type="email" name="emailInput" required>
                             <label>Email</label>
                         </div>
 
                         <div class="input-box">
                             <span class="icon"><i class='bx bxs-lock-alt'></i></span>
-                            <input type="password" required>
+                            <input type="password" name="pwdInput" required>
                             <label>Password</label>
                         </div>
 
