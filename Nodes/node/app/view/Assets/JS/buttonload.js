@@ -77,7 +77,7 @@ function getReview(button){
         const newGrid1 = document.createElement('div');
         newGrid1.className = 'col-lg-4';
         newGrid1.innerHTML = `
-            <h2 class="fw-normal"> ${Object.values(data[0])[0]}</h2>
+            <p class="fw-normal lead"> ${Object.values(data[0])[0]}</p>
         `;
 
         newRow.appendChild(newGrid1);

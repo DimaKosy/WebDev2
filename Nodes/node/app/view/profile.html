@@ -16,6 +16,7 @@
     <script src="Assets/JS/login.js"></script>
     <script src="./Assets/JS/bootstrap.bundle.js"></script>
     <script src="./Assets/JS/bootstrap.bundle.min.js"></script>
+    
 
     <!-- Favicons -->
     <link rel="apple-touch-icon" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/apple-touch-icon.png"
@@ -53,6 +54,9 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="SignUp_Login.html">Login</a>
                         </li>
+                        <li class="nav-item">
+                            <button class="btn btn-dark" type="submit"  id="signOutButton" onclick="signOut()">Sign Out</button>
+                          </li>
                     </ul>
                 </div>
             </div>
@@ -95,13 +99,16 @@
                     <h2 class="text-light">Add New Game</h2>
                     <div>
                         <label for="gameNameInput">Game Name:</label>
-                        <input type="text" id="gameNameInput" placeholder="Enter Game Name">
+                        <input type="text" id="gameNameInput" placeholder="Enter Game Name" maxlength="50">
                     </div>
                     <div>
                         <label for="reviewInput">Your Review:</label>
-                        <input type="text" id="reviewInput" placeholder="Enter Review">
+                        <input type="text" id="reviewInput" placeholder="Enter Review" maxlength="200">
                     </div>
                     <button class="btn btn-success" id="addGame">Add Game</button>
+                    <div class="popup" id="characterLimitPopup">
+                        Character limit reached!
+                    </div>
                 </div>
 
                 <div class="game-table col-md-12 center-block bg-light full-width">
@@ -128,6 +135,7 @@
     <!-- Basic Footer -->
     <footer class="footer">
         <p>&#169; 2023 Reserved rights</p>
+        <script src="./Assets/JS/popup.js"></script>
     </footer>
 
 </body>

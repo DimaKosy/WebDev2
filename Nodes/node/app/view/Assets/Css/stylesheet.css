@@ -12465,3 +12465,9 @@ body {
 .game-table-title {
   color: black;  
 }
+
+.reviewContainer{
+  border-radius: 10px;
+  background: #000;
+  padding-left: 10px;
+}
