@@ -30,8 +30,6 @@ app.post("/login", async function(req, res){
     var user = req.body.emailInput;
     var pwd = req.body.pwdInput;
 
-    console.log(req.session.user);
-
     //user = validator.blacklist(user, '/\{}:;'); // missing  ' and "" for full JSON sanitization
     // don't edit the pwd, it will not be inserted plain in the DB, no risk of code injection
 
@@ -57,10 +55,17 @@ app.post("/login", async function(req, res){
         })
     });
 
+    var userName = await new Promise((resolve, reject)=>{
+        model.selectUserName(userID, function(response){
+            console.log("USER NAME RESOLVE: " + response);
+            resolve(Object.values(response[0])[0]);
+        });
+    });
+
     bcrypt.compare(pwd, userPwd, function(err, result) {
   		if(result) {
             console.log("Welcome");
-            req.session.user = "null";
+            req.session.user = userName;
             req.session.user_id = userID;
             return res.redirect("/profile.html");
         } else {
@@ -155,8 +160,9 @@ app.post('/game', function (req, res) {
 });
 
 // Endpoint for updating game data (PUT request)
-app.put('/games/:id', function (req, res) {
+app.put('/games', function (req, res) {
     var updatedData = req.body;
+    updatedData.userID = req.session.user_id;
 
 	console.log("updating: " + updatedData);
 
@@ -167,9 +173,9 @@ app.put('/games/:id', function (req, res) {
 });
 
 // Endpoint for deleting game data (DELETE request)
-app.delete('/games/:id', function (req, res) {
+app.delete('/games', function (req, res) {
     var deleteData = req.body;
-
+    deleteData.userID = req.session.user_id;
 	console.log("DELETING: " + deleteData);
 
     model.deleteFromGameList(deleteData, function (response) {
@@ -187,8 +193,8 @@ app.get('/allgames/:offset', function(req, res){
 
 app.get('/getReview/:offset',function(req, res){
     model.LoadNextReview(req.params.offset, function(response){
-        console.log(response);
-        res.send(response);
+        console.log(Object.values(response[0])[0]);
+        res.send(Object.values(response[0])[0]);
     });
 });
 

@@ -10,7 +10,7 @@ var db = mysql.createConnection({
 
 async function getUserID(username){
     return new Promise((resolve, reject) => {
-        db.query("select GetUserIDByUsername(?) as result;",[seurname]),function(err, result){
+        db.query("select GetUserIDByUsername(?) as result;",[username]),function(err, result){
             if (err) throw err;
 			console.log(result[0].result);
 			resolve(result[0].result);
@@ -45,6 +45,16 @@ exports.selectUsers = function (userEmail, response) {
         console.log("From model: " + result);
         response(result);
     });
+}
+
+//function to get user name
+exports.selectUserName = function(user_id, response){
+    console.log("SELECT USERNAME");
+    db.query("select user_name from user where user_id = ?;",[user_id],function(err, result, fields){
+        if (err) throw err;
+        console.log("SELECTUSERNAME : " + Object.values(result));
+        response(result);
+    });    
 }
 
 exports.selectUserPassword = function (userID, response) {
@@ -96,6 +106,8 @@ exports.updateGame = async function ( updatedData, response) {
     var userID = updatedData.userID;
     var review = updatedData.game_review;
 
+
+    console.log(updatedData);
 	gameId = await findGameID(gameName);
 
     db.query(
