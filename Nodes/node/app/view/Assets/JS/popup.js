@@ -10,7 +10,6 @@ if (gameNameInput && reviewInput && characterLimitPopup) {
 }
 
 function checkCharacterLimit() {
-    // Trim the input values to remove leading and trailing whitespaces
     const trimmedGameName = gameNameInput.value.trim();
     const trimmedReview = reviewInput.value.trim();
 
