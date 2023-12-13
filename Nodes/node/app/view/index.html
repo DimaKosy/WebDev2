@@ -13,6 +13,7 @@
 
   <link rel="stylesheet" href="./Assets/Css/stylesheet.css">
   <script src="Assets/JS/buttonload.js"></script>
+  <script src="Assets/JS/login.js"></script>
   <script src="./Assets/JS/bootstrap.bundle.js"></script>
   <script src="./Assets/JS/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -45,19 +46,18 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav me-auto mb-2 mb-md-0">
             <li class="nav-item">
-                <button class="nav-link btn active btn-dark" aria-current="page" onclick="window.location.href='index.html'">Games Hub</button>
+              <a class="nav-link active" aria-current="page" href="index.html">Games Hub</a>
             </li>
             <li class="nav-item">
-                <button class="nav-link btn active btn-dark" aria-current="page" onclick="window.location.href='profile.html'">My Profile</button>
+              <a class="nav-link active" aria-current="page" href="profile.html"> My Profile</a>
             </li>
             <li class="nav-item">
-                <button class="nav-link btn active btn-dark" aria-current="page" onclick="window.location.href='SignUp_Login.html'">Login</button>
+              <a class="nav-link active" aria-current="page" href="SignUp_Login.html">Login</a>
             </li>
             <li class="nav-item">
-                <button class=" nav-link btn active btn-dark" type="submit" id="signOutButton" onclick="signOut()">Sign Out</button>
+              <button class="btn btn-dark" type="submit"  id="signOutButton" onclick="signOut()">Sign Out</button>
             </li>
-        </ul>
-        
+          </ul>
         </div>
       </div>
     </nav>

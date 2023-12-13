@@ -10,6 +10,14 @@
 //     });
 // }
 
+function signOut(){
+    $.post(`/logout`, function(status){
+        console.log("LOGGING OUT");
+    });
+
+    document.location.href='SignUp_Login.html';
+}
+
 
 function LoadUser(){
     $.get(`/profile`, function (data, status) {

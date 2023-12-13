@@ -199,15 +199,6 @@ app.get('/getReview/:offset/:game',function(req, res){
     });
 });
 
-app.post("/logout", function (req, res){
-	req.session.destroy( function (err) {
-		if(err) {
-            return console.log(err);
-        }
-        res.send("You have been logged out.");
-	});	
-});
-
 app.get('/profile', function(req, res){
     data = [req.session.user, ""];
     
