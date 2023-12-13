@@ -191,10 +191,11 @@ app.get('/allgames/:offset', function(req, res){
     console.log(req.session.user);
 });
 
-app.get('/getReview/:offset',function(req, res){
-    model.LoadNextReview(req.params.offset, function(response){
-        console.log(Object.values(response[0])[0]);
-        res.send(Object.values(response[0])[0]);
+app.get('/getReview/:offset/:game',function(req, res){
+    params = [req.params.game, req.params.offset];
+    model.LoadNextReview(params, function(response){
+        console.log(response);
+        res.send(response);
     });
 });
 

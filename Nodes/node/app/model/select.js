@@ -146,16 +146,16 @@ exports.addGame = async function (gameData, callback) {
 //Rest get Games
 exports.LoadNextGame = function(offset,response){
 	
-	db.query("SELECT game_name from games limit 3 offset ?", [offset*3], function(err, result){
+	db.query("SELECT game_name, game_id from games limit 3 offset ?", [offset*3], function(err, result){
 		if (err) console.error(err);
 		response(result);
 	});
 }
 
 //rest get Review
-exports.LoadNextReview = function(offset,response){
+exports.LoadNextReview = function(params,response){
 	
-	db.query("select game_review from games_list join user on games_list.user_id = user.user_id where game_id = 1 and game_review <> '' limit 1 offset ?;",[offset], function(err, result){
+	db.query("select game_review from games_list join user on games_list.user_id = user.user_id where game_id = ? and game_review <> '' limit 1 offset ?;",[params[0],parseInt(params[1])], function(err, result){
 		if (err) console.error(err);
 		response(result);
 	});
