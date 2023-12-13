@@ -155,7 +155,7 @@ exports.LoadNextGame = function(offset,response){
 //rest get Review
 exports.LoadNextReview = function(offset,response){
 	
-	db.query("select game_review from games_list join user on games_list.user_id = user.user_id where game_id = 1 and game_review <> '';", function(err, result){
+	db.query("select game_review from games_list join user on games_list.user_id = user.user_id where game_id = 1 and game_review <> '' limit 1 offset ?;",[offset], function(err, result){
 		if (err) console.error(err);
 		response(result);
 	});
