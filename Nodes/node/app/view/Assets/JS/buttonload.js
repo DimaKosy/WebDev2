@@ -1,6 +1,13 @@
 let buttonId = 0; // Initial button id
 let lastAdded;
 
+function CheckLogin(){
+    var signout = document.getElementById("signOutButton");
+    var login = document.getElementById("loginButton");
+
+    login.hidden = true;
+}
+
 function loadMore() {
     // Increment button id and update the button text
 
