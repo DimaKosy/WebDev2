@@ -69,24 +69,32 @@ $(document).ready(function () {
         console.log("Adding");
 
         // Send data to the server
-        $.post("/game", {userID: 0, userName : 0,  gameName: gameName, review: review }, function (data, status) {
+        $.post("/game", { userID: 0, userName: 0, gameName: gameName, review: review }, function (data, status) {
             // Refresh the game table after adding a new game
             fetchGameTable();
         });
     });
 
     $(document).on("click", ".editGame", function () {
-        
+
 
         // Use the existing values or provide an interface for the user to edit
         var updatedGameName = $(this).closest("tr").find("td:first").text()
-        var updatedReview = prompt("Enter the updated review:", $(this).closest("tr").find("td:eq(1)").text());
+        //var updatedReview = prompt("Enter the updated review:", $(this).closest("tr").find("td:eq(1)").text());
 
+        // Prompt the user for an updated review with character limit
+        var updatedReview = prompt("Enter the updated review (limit 200 characters):", $(this).closest("tr").find("td:eq(1)").text());
+
+        // Check if the user input exceeds the character limit
+        if (updatedReview && updatedReview.length > 200) {
+            alert("Character limit exceeded. Please enter a review with 200 characters or less.");
+            return; // Exit the function without sending the request
+        }
         // Send request to update game
         $.ajax({
             url: `/games`,
             method: 'PUT',
-            data: {userID: 0, game_name: updatedGameName, game_review: updatedReview },
+            data: { userID: 0, game_name: updatedGameName, game_review: updatedReview },
             success: function (data, status) {
                 // Refresh the game table after editing a game
                 fetchGameTable();
@@ -97,14 +105,14 @@ $(document).ready(function () {
     // Delete Button Click Event
     $(document).on("click", ".deleteGame", function () {
         GameName = $(this).closest("tr").find("td:first").text()
-        
+
         console.log("NAME: " + GameName);
 
         // Send request to delete game
         $.ajax({
             url: `/games`,
             method: 'DELETE',
-            data: {userID: 0, game_name: GameName},
+            data: { userID: 0, game_name: GameName },
             success: function (data, status) {
                 // Refresh the game table after deleting a game
                 fetchGameTable();
