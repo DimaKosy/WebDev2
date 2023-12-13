@@ -12466,8 +12466,13 @@ body {
   color: black;  
 }
 
-.reviewContainer{
+.reviewPanel{
   border-radius: 10px;
   background: #000;
   padding-left: 10px;
+  margin-bottom: 0.5em !important;
+}
+
+.reviewPanel p{
+  margin-bottom: 0.5em !important;
 }

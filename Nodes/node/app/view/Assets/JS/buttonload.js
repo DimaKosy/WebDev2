@@ -75,7 +75,7 @@ function getReview(button){
         newRow.className = 'reviewRow';
 
         const newGrid1 = document.createElement('div');
-        newGrid1.className = 'col-lg-4';
+        newGrid1.className = 'col-lg-4 reviewPanel';
         newGrid1.innerHTML = `
             <p class="fw-normal lead"> ${Object.values(data[0])[0]}</p>
         `;
