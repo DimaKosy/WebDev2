@@ -33,8 +33,10 @@ function loadMore() {
                 <rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
                 </img>
                 <h2 class="fw-normal"> ${game.game_name}</h2>
-                <div id="reviewContainer"></div>
-                <button id="get-review" onclick="getreview()" class="btn btn-secondary">View Review</button>
+                <div class="reviewParent" >
+                    <div class="reviewContainer"></div>
+                    <button  id="get-review" offset=0 onclick="getReview(this)" class="btn btn-secondary">View Review</button>
+                </div>
             `;
             newRow.appendChild(newGrid1);
             lastAdded = game.game_name;
@@ -45,5 +47,34 @@ function loadMore() {
         gridContainer.appendChild(newRow);
     });
     
+}
+
+function getReview(button){
+
+    // button.getAttribute('offset');
+    const parentGrid = button.parentNode;
+    const childGrid = parentGrid.querySelector('.reviewContainer');
+    var offset = childGrid.childElementCount;
+    button.setAttribute('offset', offset);
+    console.log(offset);
+    console.log(">"+button.getAttribute('offset'));
+    const newRow = document.createElement('div');
+    newRow.className = 'reviewRow';
+
+    //get
+    
+    $.get(`/getReview/${offset}`, function (data, status) {
+        const newGrid1 = document.createElement('div');
+        newGrid1.className = 'col-lg-4';
+        newGrid1.innerHTML = `
+            <h2 class="fw-normal"> ${data}</h2>
+        `;
+        newRow.appendChild(newGrid1);
+    });
+    //end get
+
+    childGrid.appendChild(newRow);
+
+    console.log(childGrid);
 }
 

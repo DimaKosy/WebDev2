@@ -19,8 +19,9 @@ function LoadUser(){
             document.location.replace("/SignUp_Login.html")
             return;
         }
+        console.log(data)
 
-        document.getElementById('UsernameBox').innerText = ("Hello " + data);
+        document.getElementById('UsernameBox').innerText = ("Hello " + data[0]);
     });    
 }
 

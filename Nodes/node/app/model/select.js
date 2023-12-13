@@ -3,8 +3,8 @@ var mysql = require('mysql2');
 var db = mysql.createConnection({
     host: "127.0.0.1",
     user: "root",
-    password: "seriousSql1",
-    database: "mydb",
+    password: "1234",
+    database: "sys",
     port: 3306
 });
 
@@ -139,6 +139,17 @@ exports.LoadNextGame = function(offset,response){
 		response(result);
 	});
 }
+
+//rest get Review
+exports.LoadNextReview = function(offset,response){
+	
+	db.query("select game_review from games_list join user on games_list.user_id = user.user_id where game_id = 1 and game_review <> '';", function(err, result){
+		if (err) console.error(err);
+		response(result);
+	});
+}
+
+
 
 //Register
 exports.Register = function(data,response){

@@ -185,6 +185,13 @@ app.get('/allgames/:offset', function(req, res){
     console.log(req.session.user);
 });
 
+app.get('/getReview/:offset',function(req, res){
+    model.LoadNextReview(req.params.offset, function(response){
+        console.log(response);
+        res.send(response);
+    });
+});
+
 app.post("/logout", function (req, res){
 	req.session.destroy( function (err) {
 		if(err) {
