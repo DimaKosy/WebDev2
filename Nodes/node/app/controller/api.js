@@ -208,12 +208,14 @@ app.get('/profile', function(req, res){
     });
 });
 
-app.get('/sessionVar', function(req, res){
-
-});
-
 app.post('/loginRedirect', function(req, res){
     return res.redirect(`/SignUp_Login.html`);
 });
 
+
+app.get('/state', function(req,res){
+    data = [req.session.user, ""];
+    res.send(data);
+    
+});
 http.createServer(app).listen(8080);

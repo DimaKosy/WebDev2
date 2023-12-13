@@ -1,11 +1,25 @@
 let buttonId = 0; // Initial button id
 let lastAdded;
 
+function start(){
+    loadMore();
+    CheckLogin()
+}
+
 function CheckLogin(){
     var signout = document.getElementById("signOutButton");
     var login = document.getElementById("loginButton");
 
-    login.hidden = true;
+    $.get('/state',function(data, status){
+        if(data[0] ==  null || data[0] <= 0){
+            document.getElementById("signOutButton").hidden = true;
+        }
+        else{
+            document.getElementById("loginButton").hidden = true;
+        }
+    });
+
+    
 }
 
 function loadMore() {
