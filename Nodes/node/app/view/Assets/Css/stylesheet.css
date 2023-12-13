@@ -3557,6 +3557,7 @@ fieldset:disabled .btn {
 }
 
 .btn-dark {
+  margin-top: 5px;
   color: #fff;
   background-color: #212529;
   border-color: #212529;

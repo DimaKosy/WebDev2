@@ -51,7 +51,23 @@ body {
     cursor: pointer;
 }
 
+.signOut{
+    position: relative;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 19px;
+    color: #fff;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.right-push{
+    margin-right: auto;
+}
+
 .navbar .btnLogin-popup::before {
+    
     content: '';
     position: absolute;
     left: 0;
