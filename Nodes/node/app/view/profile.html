@@ -6,17 +6,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.118.2">
     <title>User Profile</title>
-
+    <!--Links to cs and js-->
     <link rel="stylesheet" href="Assets/Css/stylesheet.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="Assets/JS/addgames.js"></script>
     <script src="Assets/JS/login.js"></script>
     <script src="./Assets/JS/bootstrap.bundle.js"></script>
     <script src="./Assets/JS/bootstrap.bundle.min.js"></script>
-    
 
     <!-- Favicons -->
     <link rel="apple-touch-icon" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/apple-touch-icon.png"
@@ -32,9 +29,9 @@
     <meta name="theme-color" content="#712cf9">
 
 </head>
-
+<!--Start of the page-->
 <body onload="LoadUser()">
-
+    <!--The header section-->
     <header class="dark-theme">
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
             <div class="container-fluid">
@@ -58,11 +55,12 @@
         </nav>
     </header>
 
+    <!--Overall container for the conetent-->
     <div class="container">
         <main>
             <div class="profile-container">
                 <div class="profile-info col-md-6 center-block bg-secondary half-width">
-                    <!-- Left Column: Username and User Profile Picture -->
+                    <!-- Left Column: Username - preset username we do pull users name from database and User Profile Picture -->
                     <h2 id = "UsernameBox" class="text-light">Username: The Great Wizard</h2>
 
                     <div class="profile-picture">
@@ -84,30 +82,32 @@
                                 Alex Johnson
                                 <span class="badge bg-primary">15 visits</span>
                             </li>
-                            <!-- Add more friends as needed -->
                         </ul>
                     </div>
                 </div>
 
-                <!-- Input Fields for New Game -->
+                <!-- Right -Inputs for New Game to user profile -->
                 <div class="game-input col-md-6 center-block bg-secondary half-width">
                     <h2 class="text-light">Add New Game</h2>
                     <div>
                         <label for="gameNameInput">Game Name:</label>
-                        <input type="text" id="gameNameInput" placeholder="Enter Game Name" maxlength="50">
+                        <input type="text" id="gameNameInput" placeholder="Enter Game Name" maxlength="30">
                     </div>
                     <div>
                         <label for="reviewInput">Your Review:</label>
                         <input type="text" id="reviewInput" placeholder="Enter Review" maxlength="200">
                     </div>
+                    
                     <button class="btn btn-success" id="addGame">Add Game</button>
+                    <!--shows up if too many characters are inputted past the limit-->
                     <div class="popup" id="characterLimitPopup">
-                        Character limit reached!
+                        Character limit reached (30 for Name/ 200 for review!)
                     </div>
                 </div>
 
+                <!--The Game table that holds all games indival to the user-->
                 <div class="game-table col-md-12 center-block bg-light full-width">
-                    <!-- Right Column: Game Table -->
+                    <!-- Bottom main column for games -->
                     <h2 class="game-table-title">Game Table</h2>
                     <table class="table" id="gameTable">
                         <thead>
@@ -118,7 +118,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Previous Game List Will Be Appended Here -->
+                            <!-- games should appear here once they are added-->
                         </tbody>
                     </table>
                 </div>
@@ -129,7 +129,8 @@
 
     <!-- Basic Footer -->
     <footer class="footer">
-        <p>&#169; 2023 Reserved rights</p>
+        <p>&#169; 2023 Rights Reserved </p>
+        <!-- This script has to be called after the html is genereated since it searches for the input fields immediately  -->
         <script src="./Assets/JS/popup.js"></script>
     </footer>
 

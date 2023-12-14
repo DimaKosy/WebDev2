@@ -1,3 +1,4 @@
+//Connection to our internal server
 const { response } = require('express');
 var mysql = require('mysql2');
 var db = mysql.createConnection({
@@ -57,6 +58,7 @@ exports.selectUserName = function(user_id, response){
     });    
 }
 
+// function to get user password
 exports.selectUserPassword = function (userID, response) {
     db.query("SELECT user_password from user where user_id = ?;", [userID], function (err, result, fields) {
         if (err) throw err;

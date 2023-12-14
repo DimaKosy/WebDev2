@@ -1,3 +1,5 @@
+// Function to inform user of the character limit on input and edit
+
 const gameNameInput = document.getElementById('gameNameInput');
 const reviewInput = document.getElementById('reviewInput');
 const characterLimitPopup = document.getElementById('characterLimitPopup');
@@ -19,7 +21,7 @@ function checkCharacterLimit() {
         return;
     }
 
-    if (trimmedGameName.length > 49 || trimmedReview.length > 199) {
+    if (trimmedGameName.length > 29 || trimmedReview.length > 199) {
         displayPopup(characterLimitPopup);
     } else {
         hidePopup(characterLimitPopup);

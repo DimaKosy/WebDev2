@@ -1,5 +1,4 @@
-
-
+//Main function to add functions to our database
 $(document).ready(function () {
     // Function to fetch and display the game table
 
@@ -10,7 +9,7 @@ $(document).ready(function () {
             var table = $("<table></table>");
             table.addClass("table table-striped table-responsive");
 
-            // Create a table header with the titles
+            // Create a table header with the header titles
             var thead = $("<thead></thead>");
             var headerRow = $("<tr></tr>");
             var headers = ["Game Name", "Review", "Actions"];
@@ -50,10 +49,8 @@ $(document).ready(function () {
                 tbody.append(row);
             });
 
-            // Append the tbody to the table
+            // Append the tbody to the table, Append the table to the container
             table.append(tbody);
-
-            // Append the table to the container
             $("#gameTable").empty().append(table);
         });
     }
@@ -82,7 +79,7 @@ $(document).ready(function () {
         var updatedGameName = $(this).closest("tr").find("td:first").text()
         //var updatedReview = prompt("Enter the updated review:", $(this).closest("tr").find("td:eq(1)").text());
 
-        // Prompt the user for an updated review with character limit
+        // Prompt the user for an updated review with character limit stated to them
         var updatedReview = prompt("Enter the updated review (limit 200 characters):", $(this).closest("tr").find("td:eq(1)").text());
 
         // Check if the user input exceeds the character limit

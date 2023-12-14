@@ -6,23 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width= device-width, initial-scale= 1.0">
     <title>Join the Discussion</title>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link rel="preload" as="style"
         href="https://fonts.googleapis.com/css?family=Poppins:wght@300;400;500;600;700;800;900&display=swap">
     <link rel="stylesheet" href="Assets/Css/profilestyle.css">
+    <link rel="stylesheet" href="Assets/Css/stylesheet.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="./Assets/JS/bootstrap.bundle.js"></script>
     <script src="./Assets/JS/bootstrap.bundle.min.js"></script>
     <script src="./Assets/JS/bootstrap.bundle.min.js.map"></script>
     <script src="./Assets/JS/bootstrap.bundle.js"></script>
     <script src="./Assets/JS/bootstrap.bundle.js.map"></script>
-    <link rel="stylesheet" href="Assets/Css/stylesheet.css">
     <script src="Assets/JS/login.js"></script>
 </head>
 
-
 <body>
-
     <header class="dark-theme">
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
             <div class="container-fluid">
@@ -32,6 +31,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
+                <!--Less Pages links need to be here and logout on the login page dosent make much sense -->
                     <ul class="navbar-nav me-auto mb-2 mb-md-0">
                         <li class="nav-item">
                             <button class="nav-link active btn btn-dark" aria-current="page" onclick="window.location.href='index.html'">Games Hub</button>
@@ -39,7 +39,6 @@
                         <li class="nav-item">
                             <button class="nav-link active btn btn-dark" aria-current="page" onclick="window.location.href='profile.html'">My Profile</button>
                         </li>
-                        
                     </ul>
                     <button class="btnLogin-popup nav-link " >Login</button>
                 </div>
@@ -60,7 +59,7 @@
                 <div class="form-box login">
                     <div class="logreg-title">
                         <h2>Login</h2>
-                        <p>Please login to use the platform</p>
+                        <p>Please login to use our platform</p>
                     </div>
 
                     <form method="POST" action="/login">
@@ -75,11 +74,12 @@
                             <input type="password" name="pwdInput" required>
                             <label>Password</label>
                         </div>
-
+                        <!--
                         <div class="remember-forgot">
                             <label><input type="checkbox"> Remember me</label>
                             <a href="#">Forgot password?</a>
                         </div>
+                        -->
 
                         <button type="submit" class="btn">Login</button>
 
@@ -93,14 +93,14 @@
                 <div class="form-box register">
                     <div class="logreg-title">
                         <h2>Registration</h2>
-                        <p>Please provide the following to verify your identity</p>
+                        <p>Please provide the following to Join our Site!</p>
                     </div>
 
                     <form method="POST" action="/register">
                         <div class="input-box">
                             <span class="icon"><i class='bx bxs-user'></i></span>
                             <input id="nameInput" name="nameInput" type="text" required>
-                            <label>Full Name</label>
+                            <label>Username</label>
                         </div>
 
                         <div class="input-box">
@@ -114,11 +114,11 @@
                             <input id="pwdInput" name="pwdInput" type="password" required>
                             <label>Password</label>
                         </div>
-
+                        <!---
                         <div class="remember-forgot">
                             <label><input type="checkbox"> I agree to the terms & conditions</label>
                         </div>
-
+                        -->
                         <button type="submit" class="btn">Register</button>
 
                         <div class="logreg-link">
@@ -127,21 +127,23 @@
                     </form>
                 </div>
             </div>
-
-            <div class="media-options">
-                <a href="#">
-                    <i class='bx bxl-google'></i>
-                    <span>Login with Google</span>
-                </a>
-                <a href="#">
-                    <i class='bx bxl-facebook-circle'></i>
-                    <span>Login with Facebook</span>
-                </a>
-            </div>
+            <!--We where not going to mess with google / facebook authentication-->
+            <!--
+                <div class="media-options">
+                    <a href="#">
+                        <i class='bx bxl-google'></i>
+                        <span>Login with Google</span>
+                    </a>
+                    <a href="#">
+                        <i class='bx bxl-facebook-circle'></i>
+                        <span>Login with Facebook</span>
+                    </a>
+                </div>
+            -->
         </div>
     </section>
 
-
+    <!--Didnt end up using this so just left it here-->
     <script src="Assets/JS/script.js"></script>
 </body>
 

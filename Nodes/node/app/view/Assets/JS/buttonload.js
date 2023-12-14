@@ -6,6 +6,7 @@ function start(){
     CheckLogin()
 }
 
+//checking the status of the page
 function CheckLogin(){
     var signout = document.getElementById("signOutButton");
     var login = document.getElementById("loginButton");
@@ -21,9 +22,9 @@ function CheckLogin(){
 
     
 }
-
+//main content loader for index
 function loadMore() {
-    // Increment button id and update the button text
+    // Increment button id and update the button text/ calls the new cotent aka game list
 
     // Create and append new grids based on the data
     const gridContainer = document.getElementById('grid-container');
@@ -33,8 +34,6 @@ function loadMore() {
     // Use template literals to construct the correct URL
     $.get(`/allgames/${buttonId}`, function (data, status) {
 
-
-        
         if(data.length == 3){
             buttonId++;
             document.getElementById('load-more-button').innerText = `Load More!`;
@@ -45,7 +44,8 @@ function loadMore() {
         }
 
 
-        data.forEach(function (game, i) { // Add 'i' as the second parameter
+        //Create our content to show up with an image, Title from the database & a button to fetch reviews
+        data.forEach(function (game, i) { 
             console.log(game);
             const newGrid1 = document.createElement('div');
             newGrid1.className = 'col-lg-4';
@@ -85,6 +85,7 @@ function getReview(button){
     game =  parentGrid.getAttribute('gameID');
     //get
     
+    //check our database for any reviews from any of our users then fetcs them and displays them
     $.get(`/getReview/${offset}/${game}`, function (data, status) {
         
         if(data.length == 0){
