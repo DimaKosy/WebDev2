@@ -30,8 +30,7 @@ app.post("/login", async function(req, res){
     var user = req.body.emailInput;
     var pwd = req.body.pwdInput;
 
-    //user = validator.blacklist(user, '/\{}:;'); // missing  ' and "" for full JSON sanitization
-    // don't edit the pwd, it will not be inserted plain in the DB, no risk of code injection
+    user = validator.blacklist(user, '/\{}:;'); // missing  ' and "" for full JSON sanitization
 
     console.log("user: " + user + " pwd: " + pwd);
 
@@ -83,7 +82,6 @@ app.post("/register", async function(req, res) {
     var pwd = req.body.pwdInput;
 
     user = validator.blacklist(user, '/\{}:;'); // missing  ' and "" for full JSON sanitization
-        // don't edit the pwd, it will not be inserted plain in the DB, no risk of code injection
 
     console.log("user: " + user + " pwd: " + pwd);
 
@@ -96,6 +94,8 @@ app.post("/register", async function(req, res) {
 
 
     data = {user, email, hash};
+
+    //gets the user id
     req.session.user_id = await new Promise((resolve, reject)=>{
         model.Register(data, function(response){
             console.log(Object.values(response[0])[0]);
@@ -103,19 +103,20 @@ app.post("/register", async function(req, res) {
         })
     });
 
-    console.log("register check: " + req.session.user_id);
+    //checks if user is already registered
+    console.log("register check: " + req.session.user_id); 
     console.log((req.session.user_id <= 0 ));
     if(req.session.user_id <= 0 ){
         return res.send("EMAIL ALREADY REGISTERED");
     }
-
-
+    
+    //sets username and redirects to profile
     req.session.user = user;
     console.log("USER:" + user);
     return res.redirect("/profile.html");
 });
 
-app.post("/logout", function (req, res){
+app.post("/logout", function (req, res){    //logs out and destroys session
 	req.session.destroy( function (err) {
 		if(err) {
             return console.log(err);
@@ -128,8 +129,9 @@ app.post("/logout", function (req, res){
 // Endpoint for fetching game data (GET request)
 app.get('/games', function (req, res) {
 
-    userID = req.session.user_id;
+    userID = req.session.user_id;   //sets user id to pass as variable
 
+    //gets list of games
     model.selectGameList(userID , function (response) {
         console.log("From server:" + JSON.stringify(response));
 
@@ -153,7 +155,7 @@ app.post('/game', function (req, res) {
     newData.userID = req.session.user_id;
 	console.log("Adding");
 
-    model.addGame(newData, function (response) {
+    model.addGame(newData, function (response) {//adds game
         console.log("Added game data: " + JSON.stringify(response));
         res.send(response);
     });
@@ -166,14 +168,14 @@ app.put('/games', function (req, res) {
 
 	console.log("updating: " + updatedData);
 
-    model.updateGame(updatedData, function (response) {
+    model.updateGame(updatedData, function (response) {//updates game
         console.log("Updated game data: " + JSON.stringify(response));
         res.send(response);
     });
 });
 
 // Endpoint for deleting game data (DELETE request)
-app.delete('/games', function (req, res) {
+app.delete('/games', function (req, res) { //deletes game
     var deleteData = req.body;
     deleteData.userID = req.session.user_id;
 	console.log("DELETING: " + deleteData);
@@ -184,14 +186,14 @@ app.delete('/games', function (req, res) {
     });
 });
 
-app.get('/allgames/:offset', function(req, res){
+app.get('/allgames/:offset', function(req, res){//loads list of all games with offset
 	model.LoadNextGame(req.params.offset, function(response){
 		res.send(response);
 	});
     console.log(req.session.user);
 });
 
-app.get('/getReview/:offset/:game',function(req, res){
+app.get('/getReview/:offset/:game',function(req, res){//loads reviews with offset
     params = [req.params.game, req.params.offset];
     model.LoadNextReview(params, function(response){
         console.log(response);
@@ -199,7 +201,7 @@ app.get('/getReview/:offset/:game',function(req, res){
     });
 });
 
-app.get('/profile', function(req, res){
+app.get('/profile', function(req, res){//redirects profile
     data = [req.session.user, ""];
     
 
@@ -208,14 +210,16 @@ app.get('/profile', function(req, res){
     });
 });
 
-app.post('/loginRedirect', function(req, res){
+app.post('/loginRedirect', function(req, res){//redirects login
     return res.redirect(`/SignUp_Login.html`);
 });
 
 
-app.get('/state', function(req,res){
+app.get('/state', function(req,res){//sends username to check if logged in
     data = [req.session.user, ""];
     res.send(data);
     
 });
+
+//creates server
 http.createServer(app).listen(8080);

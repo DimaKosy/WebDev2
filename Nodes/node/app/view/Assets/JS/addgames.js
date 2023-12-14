@@ -43,6 +43,8 @@ $(document).ready(function () {
                 deleteButton.attr("id", "deleteButton_" + game.gameid); // Set a unique ID for each button
                 deleteButton.data("gameid", game.gameid);
 
+
+                //appends 
                 actionsCell.append(updateButton, deleteButton);
 
                 row.append(nameCell, reviewCell, actionsCell);

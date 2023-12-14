@@ -4,11 +4,12 @@ var mysql = require('mysql2');
 var db = mysql.createConnection({
     host: "127.0.0.1",
     user: "root",
-    password: "seriousSql1",
-    database: "mydb",
+    password: "1234",
+    database: "sys",
     port: 3306
 });
 
+//gets user id by username
 async function getUserID(username){
     return new Promise((resolve, reject) => {
         db.query("select GetUserIDByUsername(?) as result;",[username]),function(err, result){
@@ -19,6 +20,7 @@ async function getUserID(username){
     })
 }
 
+//finds game id by gamename
 async function findGameID(Gamename){
 	return new Promise((resolve, reject) => {
 		db.query("SELECT find_or_insert_game(?) AS result;", [Gamename], function (err, result) {
@@ -176,6 +178,7 @@ exports.Register = function(data,response){
 	});
 }
 
+//loads profile
 exports.LoadProfile = function(data,response){
     response(data)
 }
